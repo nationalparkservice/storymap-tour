@@ -119,7 +119,6 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 						$(selector + ' .logo img').closest("a")
 							.css("cursor", "pointer")
 							.attr("href", target)
-							.attr("tabindex", "-1");
 					}
 					else 
 						$(selector + ' .logo img').closest("a").css("cursor", "default");
@@ -131,7 +130,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 			this.setTopRightLink = function(text, link)
 			{
 				if( link )
-					$(selector + ' .social .msLink').html(text ? '<a href="' + link + '" target="_blank" tabindex="-1">' + text + '</a>' : '');
+					$(selector + ' .social .msLink').html(text ? '<a href="' + link + '" target="_blank">' + text + '</a>' : '');
 				else if ( text )
 					$(selector + ' .social .msLink').html('<span>' + text + '</a>');
 				else 

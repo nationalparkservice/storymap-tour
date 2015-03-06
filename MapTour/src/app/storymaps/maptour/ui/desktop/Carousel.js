@@ -115,28 +115,6 @@ define(["dojo/has",
 				$(selector + ' .carousel-item-div').on('keydown', function(e){
 					var selectedIndex = $(selector + ' .carousel-item-div.selected').parents('li').index(),
 						focusIndex = $(this).parents('li').index();
-					
-					if( e.keyCode === 9 && ! event.shiftKey ) {
-						if ( selectedIndex == focusIndex && selectedIndex == $('.carousel-item-div').length - 1) {
-							// TODO should not be done here
-							// TODO should also support tab+shift from there 
-							
-							// Add tabindex to the header righ area
-							// This need to be done dynamically to only navigate to them after the carousel
-							$("#headerDesktop .msLink *, #headerDesktop .shareIcon").attr("tabindex", "0");
-							
-							if ( $("#headerDesktop .msLink a").length )
-								$("#headerDesktop .msLink a")[0].focus();
-							else if ( $("#headerDesktop .msLink span").length )
-								$("#headerDesktop .msLink span")[0].focus();
-							else if ( $("#headerDesktop .shareIcon:visible").length )
-								$("#headerDesktop .shareIcon")[0].focus();
-							else
-								$("#headerDesktop .title")[0].focus();
-							
-							return false;
-						}
-					}
 				});
 				
 				_picDownloadedIndex = 14;
@@ -161,7 +139,7 @@ define(["dojo/has",
 					// The first div is necessary for vertical centering and the span around the image for the numbering
 					// The color specification though class is not ideal, but to have that more dynamic all the rest is a pain
 					carouselHTML += '<li>';
-					carouselHTML += ' <div class="carousel-item-div" tabindex="0">';
+					carouselHTML += ' <div class="carousel-item-div">';
 					carouselHTML += '  <span class="' + pinCssClass +'"><img data-src="' + slide.attributes.getThumbURL() + '" onerror="mediaNotFoundHandler(this)" /></span>';
 					carouselHTML += '  <div>' + ($('<div>' + slide.attributes.getName() + '</div>').html()) + '</div>';
 					// Insert a hidden description for text2speech so that the description immediately follow the point title

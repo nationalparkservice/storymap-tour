@@ -113,17 +113,54 @@ define(["storymaps/maptour/core/WebApplicationData",
 					that.onerror = '';
 				};
 				
-				// Keybord event for previous/next pictures in viewer mode
-				if( ! app.isInBuilderMode ) {
-					$(window).keyup(function(e){
-						// Enter or right arrow or down arrow or page down
-						if( e.keyCode == 13 || e.keyCode == 39 || e.keyCode == 34 )
+				//Viewer key mapping for accessibility keyboard navigation
+				// key up/down tab=9, enter=13, shift=16, escape=27, space=32, left arrow=37, up arrow=38, right arrow=39, down arrow=40, +=187, -=189
+				if(!app.isInBuilderMode) {
+					// Map accepts arrow keys for panning and +/- for zoom in/out
+					$('#mainMap').keydown(function(e){
+						if( e.which == 187 )
+							app.map.setZoom(app.map.getZoom()+1);
+						else if( e.which == 189 )
+							app.map.setZoom(app.map.getZoom()-1);
+						else if ( e.which == 37 )
+							app.map.panLeft();
+						else if ( e.which == 38 )
+							app.map.panUp();
+						else if ( e.which == 39 )
+							app.map.panRight();
+						else if ( e.which == 40 )
+							app.map.panDown();
+						e.stopPropagation();
+					});
+
+					//Carousel accepts right/left arrow keys for changing photo selection
+					$('#footerDesktop').keydown(function(e){
+						if( e.which == 39 )
 							loadNextPicture();
-						else if ( e.keyCode == 37 || e.keyCode == 33 )
+						else if ( e.which == 37 )
 							loadPrevPicture();
+						e.stopPropagation();
+					});
+
+					//Picture panel accepts right/left arrow keys for changing photo selection
+					//   and up/down keys for showing/hiding photo description
+					//   and enter/space for selecting showing the photo in colorbox
+					$('#picturePanel').keyup(function(e){
+						if( e.which == 13 || e.which == 32 )
+							e.target().click();
+						else if ( e.which == 39 )
+							loadNextPicture();
+						else if ( e.which == 37 )
+							loadPrevPicture();
+						else if ( e.which == 38 )
+							;//show description
+						else if ( e.which == 40 )
+							;//hide description
+						e.stopPropagation();
 					});
 				}
-				
+
+
 				// Prevent iPad vertical bounce effect
 				// except on few containers that needs that
 				if ( has("touch") ) {

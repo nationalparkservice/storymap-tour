@@ -99,24 +99,7 @@ define(["dojo/has",
 				updateArrows();
 				
 				$(selector + ' .carouselScroller ul').html(renderItem(slides)).removeAttr("aria-hidden");
-				
-				// When navigation with tab also navigate to the point (refresh picture panel and map)
-				$(selector + ' .carousel-item-div').focus(function(e){
-					var selectedIndex = $(selector + ' .carousel-item-div.selected').parents('li').index(),
-						focusIndex = $(this).parents('li').index();
-					
-					if ( selectedIndex != focusIndex) {
-						topic.publish("CAROUSEL_CLICK", focusIndex);
-						_navigationFromTab = true;
-					}
-				});
-				
-				// Logic to navigate away after the last point 
-				$(selector + ' .carousel-item-div').on('keydown', function(e){
-					var selectedIndex = $(selector + ' .carousel-item-div.selected').parents('li').index(),
-						focusIndex = $(this).parents('li').index();
-				});
-				
+
 				_picDownloadedIndex = 14;
 				$(selector + ' .carouselScroller ul img').slice(0,_picDownloadedIndex).each(function(i, img){ 
 					$(img).attr("src", $(img).data("src"));
@@ -163,19 +146,6 @@ define(["dojo/has",
 				
 				$(selector + ' .carousel-item-div').removeClass("selected");
 				$(selector + ' .carousel-item-div').eq(index).addClass("selected");
-				
-				// Focus new carousel active item
-				if ( ! app.isLoading ) {
-					// Does carousel already has focus (through tab navigation)
-					var carouselHasFocus = !! $(":focus").parents("#footerDesktop").length;
-					
-					$(":focus").blur();
-					
-					if ( _navigationFromTab || carouselHasFocus )
-						$(selector + ' .carousel-item-div').eq(index).focus();
-					
-					_navigationFromTab = false;
-				}
 				
 				scrollToIndex(index);
 				updateArrows();

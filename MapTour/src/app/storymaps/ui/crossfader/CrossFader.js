@@ -403,14 +403,14 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				}
 			}
 
-			this.showPlacard = function()
+			this.hidePlacard = function()
 			{
 				if (_placardIsUnder) return;
 				$(_toggle).toggleClass('closed', true);
 				$(_placardContainer2).slideUp();
 			}
 
-			this.hidePlacard = function ()
+			this.showPlacard = function ()
 			{
 				if (_placardIsUnder) return;
 				$(_toggle).toggleClass('closed', false);

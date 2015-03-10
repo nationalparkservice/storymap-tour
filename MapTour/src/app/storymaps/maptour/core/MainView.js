@@ -125,19 +125,31 @@ define(["storymaps/maptour/core/WebApplicationData",
 						else if( e.which == 189 ) {
 							app.map.setZoom(app.map.getZoom()-1);
 						}
-						else if ( e.which == 37 ) {
-							app.map.panLeft();
-						}
-						else if ( e.which == 38 ) {
-							app.map.panUp();
-						}
-						else if ( e.which == 39 ) {
-							app.map.panRight();
-						}
-						else if ( e.which == 40 ) {
-							app.map.panDown();
-						}
-					});
+                        else if (e.which == 37 && e.shiftKey) {
+                            app.map.panLeft();
+                        }
+                        else if (e.which == 38 && e.shiftKey) {
+                            app.map.panUp();
+                        }
+                        else if (e.which == 39 && e.shiftKey) {
+                            app.map.panRight();
+                        }
+                        else if (e.which == 40 && e.shiftKey) {
+                            app.map.panDown();
+                        }
+                        else if (e.which == 37 && !e.altKey && !e.metaKey && !e.ctrlKey) {
+                            panMap('left',0.2);
+                        }
+                        else if (e.which == 38 && !e.altKey && !e.metaKey && !e.ctrlKey) {
+                            panMap('up', 0.2);
+                        }
+                        else if (e.which == 39 && !e.altKey && !e.metaKey && !e.ctrlKey) {
+                            panMap('right', 0.2);
+                        }
+                        else if (e.which == 40 && !e.altKey && !e.metaKey && !e.ctrlKey) {
+                            panMap('down', 0.2);
+                        }
+                    });
 
 					//Carousel accepts right/left arrow keys for changing photo selection
 					$('#footerDesktop').keydown(function(e){
@@ -248,7 +260,26 @@ define(["storymaps/maptour/core/WebApplicationData",
 				
 				return true;
 			};
-			
+
+            function panMap(direction,percent)
+            {
+                oldCenter = app.map.extent.getCenter();
+                deltaX = app.map.extent.getWidth() * percent;
+                deltaY = app.map.extent.getHeight() * percent;
+                if (direction == 'up') {
+                    app.map.centerAt(oldCenter.offset(0,+deltaY))
+                }
+                else if (direction == 'down') {
+                    app.map.centerAt(oldCenter.offset(0,-deltaY))
+                }
+                else if (direction == 'left') {
+                    app.map.centerAt(oldCenter.offset(-deltaX, 0))
+                }
+                else if (direction == 'right') {
+                    app.map.centerAt(oldCenter.offset(+deltaX, 0))
+                }
+            }
+
 			this.webmapLoaded = function()
 			{
 				var i, 

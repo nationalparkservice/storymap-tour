@@ -431,7 +431,15 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 						title: _title,
 						scalePhotos: true, 
 						maxWidth: '90%', 
-						maxHeight: '90%'
+						maxHeight: '90%',
+                        onComplete: function () {
+                            if (true /*FIXME: using keyboard focus*/) {
+                                $('#cboxClose').focus();
+                            }
+                        },
+                        onClosed: function () {
+                            $('#picturePanel').focus();
+                        }
 					});
 				}
 				else {
@@ -440,7 +448,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 						inline: true, 
 						title: _title,
 						width: '80%', 
-						height: '80%'
+						height: '80%',
+                        onClosed: function () {
+                            $('#picturePanel').focus();
+                        }
 					});
 				}
 				

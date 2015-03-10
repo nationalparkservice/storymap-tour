@@ -408,7 +408,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				if (_placardIsUnder) return;
 				$(_toggle).toggleClass('closed', true);
 				$(_placardContainer2).slideUp();
-			}
+			};
 
 			this.showPlacard = function ()
 			{

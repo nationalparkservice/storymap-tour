@@ -116,7 +116,6 @@ define(["storymaps/maptour/core/WebApplicationData",
 				//Viewer key mapping for accessibility keyboard navigation
 				// key up/down tab=9, enter=13, shift=16, escape=27, space=32, left arrow=37, up arrow=38, right arrow=39, down arrow=40, +=187, -=189
 				if(!app.isInBuilderMode) {
-					$('body').keydown(function(e){console.log($(':focus'))});
 					// Map accepts arrow keys for panning and +/- for zoom in/out
 					$('#mainMap').keydown(function(e){
 						if( e.which == 187 ) {
@@ -263,20 +262,20 @@ define(["storymaps/maptour/core/WebApplicationData",
 
             function panMap(direction,percent)
             {
-                oldCenter = app.map.extent.getCenter();
-                deltaX = app.map.extent.getWidth() * percent;
-                deltaY = app.map.extent.getHeight() * percent;
+                var oldCenter = app.map.extent.getCenter();
+                var deltaX = app.map.extent.getWidth() * percent;
+                var deltaY = app.map.extent.getHeight() * percent;
                 if (direction == 'up') {
-                    app.map.centerAt(oldCenter.offset(0,+deltaY))
+                    app.map.centerAt(oldCenter.offset(0,+deltaY));
                 }
                 else if (direction == 'down') {
-                    app.map.centerAt(oldCenter.offset(0,-deltaY))
+                    app.map.centerAt(oldCenter.offset(0,-deltaY));
                 }
                 else if (direction == 'left') {
-                    app.map.centerAt(oldCenter.offset(-deltaX, 0))
+                    app.map.centerAt(oldCenter.offset(-deltaX, 0));
                 }
                 else if (direction == 'right') {
-                    app.map.centerAt(oldCenter.offset(+deltaX, 0))
+                    app.map.centerAt(oldCenter.offset(+deltaX, 0));
                 }
             }
 

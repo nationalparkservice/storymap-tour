@@ -118,7 +118,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					if (target) {
 						$(selector + ' .logo img').closest("a")
 							.css("cursor", "pointer")
-							.attr("href", target)
+							.attr("href", target);
 					}
 					else 
 						$(selector + ' .logo img').closest("a").css("cursor", "default");

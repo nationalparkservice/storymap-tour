@@ -116,47 +116,58 @@ define(["storymaps/maptour/core/WebApplicationData",
 				//Viewer key mapping for accessibility keyboard navigation
 				// key up/down tab=9, enter=13, shift=16, escape=27, space=32, left arrow=37, up arrow=38, right arrow=39, down arrow=40, +=187, -=189
 				if(!app.isInBuilderMode) {
+					$('body').keydown(function(e){console.log($(':focus'))});
 					// Map accepts arrow keys for panning and +/- for zoom in/out
 					$('#mainMap').keydown(function(e){
-						if( e.which == 187 )
-							app.map.setZoom(app.map.getZoom()+1);
-						else if( e.which == 189 )
+						if( e.which == 187 ) {
+							app.map.setZoom(app.map.getZoom() + 1);
+						}
+						else if( e.which == 189 ) {
 							app.map.setZoom(app.map.getZoom()-1);
-						else if ( e.which == 37 )
+						}
+						else if ( e.which == 37 ) {
 							app.map.panLeft();
-						else if ( e.which == 38 )
+						}
+						else if ( e.which == 38 ) {
 							app.map.panUp();
-						else if ( e.which == 39 )
+						}
+						else if ( e.which == 39 ) {
 							app.map.panRight();
-						else if ( e.which == 40 )
+						}
+						else if ( e.which == 40 ) {
 							app.map.panDown();
-						e.stopPropagation();
+						}
 					});
 
 					//Carousel accepts right/left arrow keys for changing photo selection
 					$('#footerDesktop').keydown(function(e){
-						if( e.which == 39 )
+						if( e.which == 39 ) {
 							loadNextPicture();
-						else if ( e.which == 37 )
+						}
+						else if ( e.which == 37 ) {
 							loadPrevPicture();
-						e.stopPropagation();
+						}
 					});
 
 					//Picture panel accepts right/left arrow keys for changing photo selection
 					//   and up/down keys for showing/hiding photo description
 					//   and enter/space for selecting showing the photo in colorbox
-					$('#picturePanel').keyup(function(e){
-						if( e.which == 13 || e.which == 32 )
-							e.target().click();
-						else if ( e.which == 39 )
+					$('#picturePanel').keydown(function(e){
+						if( e.which == 13 || e.which == 32 ) {
+							app.desktopPicturePanel.showFullScreen();
+						}
+						else if ( e.which == 39 ) {
 							loadNextPicture();
-						else if ( e.which == 37 )
+						}
+						else if ( e.which == 37 ) {
 							loadPrevPicture();
-						else if ( e.which == 38 )
-							;//show description
-						else if ( e.which == 40 )
-							;//hide description
-						e.stopPropagation();
+						}
+						else if ( e.which == 38 ) {
+							app.desktopPicturePanel.showPlacard();
+						}
+						else if ( e.which == 40 ) {
+							app.desktopPicturePanel.hidePlacard();
+						}
 					});
 				}
 
@@ -172,8 +183,10 @@ define(["storymaps/maptour/core/WebApplicationData",
 						}
 					);
 				}
-				
+
+				// See http://a11yproject.com/posts/never-remove-css-outlines/
 				// Prevent focus on mousedown but allow it with keyboard
+				/*
 				$("body").on("mousedown", "*", function(e) {
 					if (($(this).is(":focus") || $(this).is(e.target)) && $(this).css("outline-style") == "none") {
 						$(this).css("outline", "none").on("blur", function() {
@@ -181,6 +194,7 @@ define(["storymaps/maptour/core/WebApplicationData",
 						});
 					}
 				});
+				*/
 				
 				// Detect focus on the title to avoid losing the current point if 
 				//  the app has previously navigated using the mouse

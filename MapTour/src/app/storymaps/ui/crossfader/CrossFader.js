@@ -126,21 +126,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				$(_toggle).toggleClass('closed', $(_placardContainer2).css('display') != 'none');
 				$(_placardContainer2).slideToggle();
 			});
-			
-			// Keybord event up/down arrow to toggle the placard
-			if( ! app.isInBuilderMode ) {
-				$(window).keyup(function(e){
-					if ( $("#placardContainer").hasClass("placardUnder") )
-						return;
-					
-					$(_toggle).toggleClass('closed', e.keyCode == 40);
-					if( e.keyCode == 40 )
-						$(_placardContainer2).slideUp();
-					else if ( e.keyCode == 38 )
-						$(_placardContainer2).slideDown();
-				});
-			}
-			
+
 			_current = _container1;
 			
 			this.clean = function()
@@ -416,7 +402,21 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					$(_placard).find(".description .text_edit_input").css("height", descHeight < 96 ? "50px" : "auto");
 				}
 			}
-			
+
+			this.showPlacard = function()
+			{
+				if (_placardIsUnder) return;
+				$(_toggle).toggleClass('closed', true);
+				$(_placardContainer2).slideUp();
+			}
+
+			this.hidePlacard = function ()
+			{
+				if (_placardIsUnder) return;
+				$(_toggle).toggleClass('closed', false);
+				$(_placardContainer2).slideDown();
+			};
+
 			this.fullScreen = function()
 			{
 				if( _fullScreenPreventOpening )

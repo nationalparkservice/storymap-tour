@@ -146,7 +146,6 @@ define(["dojo/has",
 				
 				$(selector + ' .carousel-item-div').removeClass("selected");
 				$(selector + ' .carousel-item-div').eq(index).addClass("selected");
-				
 				scrollToIndex(index);
 				updateArrows();
 			};

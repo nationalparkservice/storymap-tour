@@ -1,0 +1,27 @@
+.esriSimpleSlider {
+  border: 1px solid #1a2423;
+  background-color: #747571;
+  color: #FFF;
+  box-shadow: 0 0 15px #888;
+}
+.esriSimpleSliderDecrementButton:hover, .esriSimpleSliderIncrementButton:hover {
+  background-color: #626159;
+}
+
+.esriSimpleSlider div {
+  width: 26px;
+  height: 26px;
+  font-size: 18px;
+  line-height: 23px;
+  }
+  
+.mapCommandHomeBtn {
+  background: url(http://www.nps.gov/npmap/npmap.js/2.0.0/images/font-awesome/home.png);
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  background-position: 5px 5px;
+}
+
+.mapCommandHomeBtn.loading:hover{
+  background-color: #626159;
+}

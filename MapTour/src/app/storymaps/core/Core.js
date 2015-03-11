@@ -493,6 +493,9 @@ define(["esri/map",
 			var appColors = WebApplicationData.getColors();
 			var logoURL = WebApplicationData.getLogoURL() || APPCFG.HEADER_LOGO_URL;
 			var logoTarget = (logoURL == APPCFG.HEADER_LOGO_URL) ? APPCFG.HEADER_LOGO_TARGET : WebApplicationData.getLogoTarget();
+			//var wtf = (!isProd() && Helper.getAppID(isProd())) || isProd();
+			//var showBuilderButton = ! app.isInBuilderMode && wtf && app.data.userIsAppOwner();
+			var showBuilderButton = app.data.userIsAppOwner() && !app.isInBuilderMode;
 			
 			app.header.init(
 				! app.isInBuilderMode && (APPCFG.EMBED || urlParams.embed || urlParams.embed === ''),
@@ -501,9 +504,7 @@ define(["esri/map",
 				appColors[0],
 				logoURL,
 				logoTarget,
-				! app.isInBuilderMode && (
-					(! isProd() && Helper.getAppID(isProd()))
-					|| isProd() && app.data.userIsAppOwner()),
+				showBuilderButton,
 				WebApplicationData.getHeaderLinkText() === undefined ? APPCFG.HEADER_LINK_TEXT : WebApplicationData.getHeaderLinkText(),
 				WebApplicationData.getHeaderLinkURL() === undefined ? APPCFG.HEADER_LINK_URL : WebApplicationData.getHeaderLinkURL(),
 				WebApplicationData.getSocial()

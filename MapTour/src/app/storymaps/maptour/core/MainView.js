@@ -370,7 +370,7 @@ define(["storymaps/maptour/core/WebApplicationData",
 						var FSManager = new FeatureServiceManager();
 						topic.subscribe("FS_MANAGER_LAYER_LOADED", function(tourPoints) {
 							// If in builder or preview mode
-							if( app.isInBuilderMode || ! Helper.getAppID(_core.isProd()) ) {							
+							if( app.isInBuilderMode || ! Helper.getAppID() ) {
 								// Count FS features and warn user if they are not all visible
 								// There should always be the same number of feature now that the web map is loaded at full extent
 								var queryCount = new Query();
@@ -442,7 +442,7 @@ define(["storymaps/maptour/core/WebApplicationData",
 						});
 				}
 				// No data in view mode
-				else if( Helper.getAppID(_core.isProd()) ) {
+				else if( Helper.getAppID() ) {
 					if( app.data.userIsAppOwner() ){
 						loadingIndicator.setMessage(i18n.viewer.loading.loadBuilder);
 						setTimeout(function(){

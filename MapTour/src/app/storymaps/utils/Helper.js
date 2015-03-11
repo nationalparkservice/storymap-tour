@@ -54,33 +54,17 @@ define(["dojo/cookie",
 				
 				return {};
 			},
-			getWebmapID: function(isProd)
+			getWebmapID: function()
 			{
-				var urlParams = this.getUrlParams();
-				
 				if( configOptions && configOptions.webmap )
 					return configOptions.webmap;
-				
-				if ( this.isArcGISHosted() || ! isProd )
-					return urlParams.webmap;
-				
-				// Only authorize URL params outside of arcgis.com if a webmap owner is specified
-				if( configOptions.authorizedOwners && configOptions.authorizedOwners.length > 0 && configOptions.authorizedOwners[0] )
-					return urlParams.webmap;
+				return this.getUrlParams().webmap;
 			},
-			getAppID: function(isProd)
+			getAppID: function()
 			{
-				var urlParams = this.getUrlParams();
-				
 				if( configOptions && configOptions.appid )
 					return configOptions.appid;
-				
-				if ( this.isArcGISHosted() || ! isProd )
-					return urlParams.appid;
-				
-				// Only authorize URL params outside of arcgis.com if a webmap/app owner is specified
-				if( configOptions.authorizedOwners && configOptions.authorizedOwners.length > 0 && configOptions.authorizedOwners[0] )
-					return urlParams.appid;
+				return this.getUrlParams().appid;
 			},
 			getGraphicsLayerByName: function(map, name)
 			{

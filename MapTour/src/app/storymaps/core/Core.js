@@ -102,7 +102,7 @@ define(["esri/map",
 			
 			if( builder != null ) {
 				isDirectCreation = urlParams.fromScratch != null || urlParams.fromscratch != null;
-				isInBuilderMode = isDirectCreation || Helper.getAppID(isProd());
+				isInBuilderMode = isDirectCreation || Helper.getAppID();
 				isGalleryCreation = urlParams.fromGallery != null;
 			}
 			
@@ -114,7 +114,7 @@ define(["esri/map",
 			}
 
 			// Ignore index.html configuration on AGOL/Portal and development (except proxy/sharing URL)
-			if( Helper.isArcGISHosted() || ! isProd() )
+			if( Helper.isArcGISHosted() )
 				configOptions = {
 					proxyurl: configOptions.proxyurl,
 					sharingurl: configOptions.sharingurl
@@ -266,8 +266,8 @@ define(["esri/map",
 		{
 			console.log("maptour.core.Core - initStep3");
 			
-			var appId = Helper.getAppID(isProd());
-			var webmapId = Helper.getWebmapID(isProd());
+			var appId = Helper.getAppID();
+			var webmapId = Helper.getWebmapID();
 					
 			// Initialize localization
 			app.header.initLocalization();
@@ -304,7 +304,7 @@ define(["esri/map",
 			// Direct creation and not signed-in
 			else if ( app.isDirectCreation && isProd() && ! Helper.getPortalUser() )
 				redirectToSignIn();
-			// Direct creation and signed in
+			// Direct creation and signed in  OR  Direct creation and developer mode
 			else if ( app.isDirectCreation )
 				portalLogin().then(function(){
 					loadWebMap(MapTourBuilderHelper.getBlankWebmapJSON());
@@ -376,13 +376,14 @@ define(["esri/map",
 					return;
 				}
 				
-				// If in builder, check that user is app owner or org admin
+				// If in production builder, check that user is app owner or org admin
+				//   - development builder does need to be the owner ???
 				if (app.isInBuilderMode && isProd() && !app.data.userIsAppOwner()) {
 					initError("notAuthorized");
 					return;
 				}
 
-				var webmapId = WebApplicationData.getWebmap() || Helper.getWebmapID(isProd());
+				var webmapId = WebApplicationData.getWebmap() || Helper.getWebmapID();
 				if (webmapId)
 					loadWebMap(webmapId);
 				// Come back from the redirect below, create a new webmap
@@ -496,7 +497,7 @@ define(["esri/map",
 			//var wtf = (!isProd() && Helper.getAppID(isProd())) || isProd();
 			//var showBuilderButton = ! app.isInBuilderMode && wtf && app.data.userIsAppOwner();
 			var showBuilderButton = app.data.userIsAppOwner() && !app.isInBuilderMode;
-			
+
 			app.header.init(
 				! app.isInBuilderMode && (APPCFG.EMBED || urlParams.embed || urlParams.embed === ''),
 				title,

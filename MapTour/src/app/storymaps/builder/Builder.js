@@ -53,7 +53,7 @@ define(["esri/arcgis/Portal",
 			$(document).ready(lang.hitch(this, function(){
 				console.log("maptour.builder.Builder - init");
 			
-				if( ! Helper.getAppID(_core.isProd()) && ! app.isDirectCreation ) {
+				if( ! Helper.getAppID() && ! app.isDirectCreation ) {
 					console.error("maptour.builder.Builder - abort builder initialization, no appid supplied");
 					return;
 				}

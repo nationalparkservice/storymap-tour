@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Testing</title>
+  <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+  <script src="http://js.arcgis.com/3.13/"></script>
+</head>
+<body>
+<h1>hello</h1>
+<a href="">link 1</a>
+  <a href="">
+    <img alt="Map Tour logo" src="resources/markers/StaticIcon1.png"/>
+  </a>
+<div class="logo">
+  <a target="_blank" href="">
+    <img alt="Map Tour logo" class="headerLogoImg"/>
+  </a>
+</div>
+<a href="resourc">link2</a>
+<p>goodbye</p>
+<script>
+  require(['esri/urlUtils'],function(urlUtils){
+    s = document.location.search;
+    h = document.location.hash;
+    console.log(window.location);
+    console.log(location);
+    console.log(document.location);
+    console.log(location === window.location);
+    console.log(s);
+    console.log(h);
+    var q = urlUtils.urlToObject(s).query;
+    console.log(q);
+  });
+
+  function searchToObject(search) {
+    return search.substring(1).split("&").reduce(function(result, value) {
+      var parts = value.split('=');
+      if (parts[0]) result[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+      return result;
+    }, {})
+  }
+  console.log(searchToObject(location.search));
+</script>
+</body>
+</html>

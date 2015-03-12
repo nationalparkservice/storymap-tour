@@ -103,22 +103,12 @@
 		position:relative;
 		display: inline-block;
 	}
-	
-	.rightArea .logo a img {
-		bottom: initial;
-		top: initial;
-		margin-top: -10px;
-	}
 }
 
 .rightArea .logo img {
-	position: absolute;
-	top: 50%;
-	bottom: 50%;
-	right: 0px;
 	max-width: 250px;
 	max-height: 50px;
-	margin: auto 0;
+	margin: 5px 0;
 }
 
 .switchBuilder {

@@ -126,6 +126,7 @@ define(["storymaps/maptour/core/WebApplicationData",
 						}
                         else if (e.which == 37 && e.shiftKey) {
                             app.map.panLeft();
+							e.stopPropagation();
                         }
                         else if (e.which == 38 && e.shiftKey) {
                             app.map.panUp();
@@ -138,46 +139,55 @@ define(["storymaps/maptour/core/WebApplicationData",
                         }
                         else if (e.which == 37 && !e.altKey && !e.metaKey && !e.ctrlKey) {
                             panMap('left',0.2);
+							e.stopPropagation();
                         }
                         else if (e.which == 38 && !e.altKey && !e.metaKey && !e.ctrlKey) {
                             panMap('up', 0.2);
+							e.stopPropagation();
                         }
                         else if (e.which == 39 && !e.altKey && !e.metaKey && !e.ctrlKey) {
                             panMap('right', 0.2);
+							e.stopPropagation();
                         }
                         else if (e.which == 40 && !e.altKey && !e.metaKey && !e.ctrlKey) {
                             panMap('down', 0.2);
+							e.stopPropagation();
                         }
                     });
 
 					//Carousel accepts right/left arrow keys for changing photo selection
-					$('#footerDesktop').keydown(function(e){
-						if( e.which == 39 ) {
+					//$('#footerDesktop').keydown(function(e){
+					//	if( e.which == 39 ) {
+					//		loadNextPicture();
+					//	}
+					//	else if ( e.which == 37 ) {
+					//		loadPrevPicture();
+					//	}
+					//});
+
+					//The body accepts right/left arrow keys for changing photo selection
+					//   and up/down keys for showing/hiding photo description
+					//the default action for arrow keys is to scroll the web page, but we do not need that
+					$('body').keydown(function(e){
+						if ( e.which == 39  && !e.altKey && !e.metaKey && !e.ctrlKey && !e.shiftKey ) {
 							loadNextPicture();
 						}
-						else if ( e.which == 37 ) {
+						else if ( e.which == 37  && !e.altKey && !e.metaKey && !e.ctrlKey && !e.shiftKey ) {
 							loadPrevPicture();
+						}
+						else if ( e.which == 38  && !e.altKey && !e.metaKey && !e.ctrlKey && !e.shiftKey ) {
+							app.desktopPicturePanel.showPlacard();
+						}
+						else if ( e.which == 40  && !e.altKey && !e.metaKey && !e.ctrlKey && !e.shiftKey ) {
+							app.desktopPicturePanel.hidePlacard();
 						}
 					});
 
-					//Picture panel accepts right/left arrow keys for changing photo selection
-					//   and up/down keys for showing/hiding photo description
+					//Picture panel arrow key is behavior is the default for the body, so let it bubble up
 					//   and enter/space for selecting showing the photo in colorbox
 					$('#picturePanel').keydown(function(e){
 						if( e.which == 13 || e.which == 32 ) {
 							app.desktopPicturePanel.showFullScreen();
-						}
-						else if ( e.which == 39 ) {
-							loadNextPicture();
-						}
-						else if ( e.which == 37 ) {
-							loadPrevPicture();
-						}
-						else if ( e.which == 38 ) {
-							app.desktopPicturePanel.showPlacard();
-						}
-						else if ( e.which == 40 ) {
-							app.desktopPicturePanel.hidePlacard();
 						}
 					});
 				}

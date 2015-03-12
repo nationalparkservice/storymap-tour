@@ -168,8 +168,12 @@ APPCFG = {
 	// Edit those to set a custom sharing or proxy URL
 	// You have to edit those only if your webmap is deployed on Portal for ArcGIS instance and if you are not deploying the template on the Portal webserver
 	// If you are using ArcGIS Online or deploying the template on a Portal instance, you don't have to edit those URL
-	DEFAULT_SHARING_URL: "//www.arcgis.com/sharing/content/items",
-	//DEFAULT_SHARING_URL: "//portal.internal.com/arcgis/sharing/content/items",
-	DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
-	//DEFAULT_PROXY_URL: "//portal.internal.com/arcgis/sharing/proxy"
+	//DEFAULT_SHARING_URL: "//www.arcgis.com/sharing/content/items",
+	DEFAULT_SHARING_URL: "//gisportal.nps.gov/arcgis/sharing/content/items",
+	//DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
+	DEFAULT_PROXY_URL: "//gisportal.nps.gov/arcgis/sharing/proxy"
+	//Testing src with Portal map:
+	//  Angel's Dutch harbor map:  http://localhost/dev/maptour/?appid=91b7c7e6f64b4f5688ca56014b4b7c07
+	//  My Aniakchak Caldera Map:  http://localhost/dev/maptour/?appid=0436a313fa104ea489595daf90f9d023
+	//Testing src with AGOL map: http://localhost/dev/maptour/?appid=c89f683b00b445b58a87ec8dc461584b
 };

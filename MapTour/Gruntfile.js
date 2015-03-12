@@ -8,7 +8,8 @@
 			clean: {
 				deploy: ['deploy/*'],
 				css: [
-					'deploy/app/Responsive.css', 
+					'deploy/app/Responsive.css',
+					'deploy/app/nps.css',
 					'deploy/app/css/', 
 					'deploy/app/' + APP_NAME + '-css-app-min.css', 
 					'deploy/app/' + APP_NAME + '-css-lib-min.css'
@@ -83,7 +84,7 @@
 			
 			cssmin: {
 					app: {
-						src: ['deploy/app/css/**/*.css', 'deploy/app/Responsive.css'],
+						src: ['deploy/app/css/**/*.css', 'deploy/app/Responsive.css', 'deploy/app/nps.css'],
 						dest: 'deploy/app/' + APP_NAME + '-css-app-min.css'
 					},
 					lib: {
@@ -165,6 +166,10 @@
 				moveResponsiveCss: {
 					src: 'deploy/app/css/storymaps/' + APP_NAME + '/ui/Responsive.css',
 					dest: 'deploy/app/Responsive.css'
+				},
+				moveNpsCss: {
+					src: 'deploy/app/css/storymaps/' + APP_NAME + '/ui/nps.css',
+					dest: 'deploy/app/nps.css'
 				}
 			},
 			
@@ -289,6 +294,7 @@
 			 */
 			'copy:css',
 			'rename:moveResponsiveCss',
+			'rename:moveNpsCss',
 			'cssmin',
 			'concat:css',
 			'regex-replace:css',

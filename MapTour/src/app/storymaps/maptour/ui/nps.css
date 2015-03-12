@@ -16,7 +16,7 @@
   }
   
 .mapCommandHomeBtn {
-  background: url(http://www.nps.gov/npmap/npmap.js/2.0.0/images/font-awesome/home.png);
+  background: url(../../../../resources/icons/home.png);
   background-size: 16px 16px;
   background-repeat: no-repeat;
   background-position: 5px 5px;

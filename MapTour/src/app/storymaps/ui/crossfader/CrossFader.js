@@ -74,7 +74,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					$.colorbox.close();
 				});
 			});
-			
+
+			$(_container1).attr("tabindex", "0");
+			$(_container2).attr("tabindex", "0");
+
 			// Placard
 			_placardContainer2 = $("<div id='placard-bg'></div>");
 			_placard = $("<div id='placard'></div>");
@@ -331,7 +334,9 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 			{		
 				$(_current).addClass("current");
 				$(_other).removeClass("current");
-				
+
+				var restoreFocus = $(_other).is(':focus');
+
 				$(_current).fadeTo("slow", 1);
 				$(_other).fadeTo("slow", 0, function(){
 					$(_other).hide();
@@ -341,6 +346,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				setTimeout(function(){
 					_loadingIndicator.stop();
 				}, 100);
+
+				if(restoreFocus) {
+					$(_current).focus();
+				}
 			}
 			
 			function setPlacard(name, text)

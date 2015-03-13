@@ -112,7 +112,16 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				if ( _isModernLayout )
 					$(".modern-layout-control").toggleClass("hover", !! isHoverPicture);
 			});
-			
+
+			$('#cfader').focus(function(){
+				_fullScreenBtn.toggleClass("hover", true);
+				$(".modern-layout-control").toggleClass("hover", true);
+			}).blur(function(){
+				//TODO: do not remove hover if mouse is within hover zone
+				_fullScreenBtn.toggleClass("hover", false);
+				$(".modern-layout-control").toggleClass("hover", false);
+			});
+
 			$('#placardContainer').hover(function(e){
 				if ( $(e.relatedTarget).hasClass('modern-layout-control') )
 					return;

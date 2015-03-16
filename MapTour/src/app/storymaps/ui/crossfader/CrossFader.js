@@ -456,7 +456,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
                             }
                         },
                         onClosed: function () {
-                            $('#picturePanel').focus();
+							$(_current).focus();
                         }
 					});
 				}
@@ -468,7 +468,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 						width: '80%', 
 						height: '80%',
                         onClosed: function () {
-                            $('#picturePanel').focus();
+                            $(_current).focus();
                         }
 					});
 				}

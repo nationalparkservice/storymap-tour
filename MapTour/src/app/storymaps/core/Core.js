@@ -521,10 +521,8 @@ define(["esri/map",
 			
 			// Map command buttons
 			app.mapCommand = new MapCommand(
-				app.map, 
-				function(){
-					_mainView.setMapExtent(Helper.getWebMapExtentFromItem(app.data.getWebMapItem().item));
-				},
+				app.map,
+				_mainView.zoomInitialExtents,
 				_mainView.zoomToDeviceLocation,
 				APPCFG.DISPLAY_LOCATE_BUTTON || WebApplicationData.getZoomLocationButton()
 			);

@@ -114,14 +114,14 @@ define(["storymaps/maptour/core/WebApplicationData",
 				};
 				
 				//Viewer key mapping for accessibility keyboard navigation
-				// key up/down tab=9, enter=13, shift=16, escape=27, space=32, left arrow=37, up arrow=38, right arrow=39, down arrow=40, +=187, -=189
+				// key up/down tab=9, enter=13, shift=16, escape=27, space=32, home=36, left arrow=37, up arrow=38, right arrow=39, down arrow=40, +=187/107, -=189/109
 				if(!app.isInBuilderMode) {
 					// Map accepts arrow keys for panning and +/- for zoom in/out
 					$('#mainMap').keydown(function(e){
-						if( e.which == 187 ) {
+						if( e.which == 187 || e.which == 107) {
 							app.map.setZoom(app.map.getZoom() + 1);
 						}
-						else if( e.which == 189 ) {
+						else if( e.which == 189 || e.which == 109 ) {
 							app.map.setZoom(app.map.getZoom()-1);
 						}
                         else if (e.which == 37 && e.shiftKey) {
@@ -153,6 +153,9 @@ define(["storymaps/maptour/core/WebApplicationData",
                             panMap('down', 0.2);
 							e.stopPropagation();
                         }
+						else if (e.which == 36) {//home key
+							_this.zoomInitialExtents();
+						}
                     });
 
 					//Carousel accepts right/left arrow keys for changing photo selection
@@ -1293,6 +1296,11 @@ define(["storymaps/maptour/core/WebApplicationData",
 				}
 			};
 			
+			this.zoomInitialExtents = function()
+			{
+				_this.setMapExtent(Helper.getWebMapExtentFromItem(app.data.getWebMapItem().item));
+			};
+
 			this.setMapExtent = function(extent)
 			{
 				if( ! extent || ! extent.spatialReference || ! app.map || ! app.map.extent.spatialReference || ! app.map.spatialReference ) {

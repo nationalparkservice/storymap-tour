@@ -1,3 +1,7 @@
+#header {
+  background:#000;
+}
+
 .esriSimpleSlider {
   border: 1px solid #1a2423;
   background-color: #747571;
@@ -14,14 +18,58 @@
   font-size: 18px;
   line-height: 23px;
   }
-  
+
 .mapCommandHomeBtn {
-  background: url(../../../../resources/icons/home.png);
+  background: url(../../../../resources/icons/mapcommand-home2.png);
   background-size: 16px 16px;
   background-repeat: no-repeat;
   background-position: 5px 5px;
 }
 
+.mapCommandLocation img {
+  width: 17px;
+  margin-top: 4px;
+}
+
 .mapCommandHomeBtn.loading:hover{
   background-color: #626159;
+}
+
+.rightArea {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding-top: 5px;
+  padding-right: 15px;
+  text-align: right;
+  font-size: 80%;
+}
+
+.rightArea .social {
+  float: left;
+  margin-bottom: 6px;
+}
+
+.rightArea .logo {
+  float: right;
+  height: 80px;
+  padding-top: 12px;
+  border: none;
+  outline: none;
+}
+.rightArea .organization {
+  float: left;
+  padding-right: 12px;
+  padding-top: 27px;
+}
+
+.rightArea .logo img {
+  max-width: 105px;
+  max-height: 105px;
+  margin: 0;
+}
+
+.organization a {
+  color: #fff;
+  font-weight:normal;
 }

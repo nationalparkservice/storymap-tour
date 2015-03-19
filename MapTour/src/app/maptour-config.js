@@ -8,24 +8,24 @@ APPCFG = {
 	EMBED: false,
 	
 	// Header Logo
-	HEADER_LOGO_URL: "resources/icons/esri-logo.png",
-	HEADER_LOGO_TARGET: "http://www.esri.com",
+	HEADER_LOGO_URL: "resources/icons/ArrowheadNoBackground.png",
+	HEADER_LOGO_TARGET: "http://www.nps.gov",
 	// Header top right link
-	HEADER_LINK_TEXT: "A story map",
-	HEADER_LINK_URL: "http://storymaps.arcgis.com",
+	HEADER_LINK_TEXT: "Alaska Region",
+	HEADER_LINK_URL: "http://www.nps.gov/AKSO",
 	// Control display of Facebook and Twitter links
 	HEADER_SOCIAL: {
 		facebook: true,
 		twitter: true,
 		bitly: {
-			enable: true,
+			enable: false,
 			login: "esristorymaps",
 			key: "R_14fc9f92e48f7c78c21db32bd01f7014"
 		}
 	},
 	
 	// Header, Picture Panel and Carousel colors
-	COLORS: ["#444", "#B4B4B4", "#E5E5E5"],
+	COLORS: ["#000", "#737c6c", "#a8b09e"],
 	
 	// Map popup colors
 	POPUP_BACKGROUND_COLOR: "#444444", 
@@ -96,7 +96,7 @@ APPCFG = {
 		}
 	},
 	// Default color
-	PIN_DEFAULT_CFG: 'r',
+	PIN_DEFAULT_CFG: 'g',
 	// Pin states
 	ICON_CFG: {
 		normal: {
@@ -138,10 +138,10 @@ APPCFG = {
 		picasa: true,
 		youtube: true
 	},
-	
+
+	// The Facebook ID is only valid on arcgis.com domain
 	// Online photo sharing services connection parameters
 	FLICKR_API_KEY: "750b36a2ac65a72e03cf9cef06d79f45",
-	// The Facebook ID is only valid on arcgis.com domain
 	// If used on another domain, user will have an error in the Facebook popup after login
 	// To use Facebook import on Portal for ArcGIS, create your own ID at https://developers.facebook.com/ 
 	// or set AUTHORIZED_IMPORT_SOURCE.facebook to false
@@ -155,8 +155,8 @@ APPCFG = {
 	COLOR_SCHEMES:  [
 		// COLORS is added as the first item at runtime
 		{name: "Black", headerColor: "#000", middleColor: "#B4B4B4", footerColor: "#E5E5E5"},
-		{name: "Blue", headerColor: "#0e3867", middleColor: "#5d6f89", footerColor: "#9096a9"},
-		{name: "Green", headerColor: "#1a3606", middleColor: "#737c6c", footerColor: "#a8b09e"}
+		{name: "Blue", headerColor: "#000", middleColor: "#5d6f89", footerColor: "#9096a9"},
+		{name: "Brown", headerColor: "#000", middleColor: "#aa7942", footerColor: "#e5c8a7"}
 	],
 	
 	WEBAPP_KEYWORD_GENERIC: ["JavaScript", "Map", "Mapping Site", "Online Map", "Ready To Use", "selfConfigured", "Web Map"],

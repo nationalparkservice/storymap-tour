@@ -130,11 +130,11 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 			this.setTopRightLink = function(text, link)
 			{
 				if( link )
-					$(selector + ' .social .msLink').html(text ? '<a href="' + link + '" target="_blank">' + text + '</a>' : '');
+					$(selector + ' .organization .unit').html(text ? '<a href="' + link + '" target="_blank">' + text + '</a>' : '');
 				else if ( text )
-					$(selector + ' .social .msLink').html('<span>' + text + '</a>');
+					$(selector + ' .organization .unit').html(text);
 				else 
-					$(selector + ' .social .msLink').html('');
+					$(selector + ' .organization .unit').html('');
 			};
 			
 			this.setTitleAndSubtitle = function(title, subtitle)

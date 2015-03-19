@@ -382,9 +382,6 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				$(_placard).append("<div class='name'>"+name+"<div/>");
 				$(_placard).append("<div class='description'>"+text+"<div/>");
 				
-				// Remove user generated content links from the tab navigation
-				$(_placard).find("a").attr("tabindex", "-1");
-				
 				if (isInBuilderMode) {
 					new InlineFieldEdit(
 						selector, 

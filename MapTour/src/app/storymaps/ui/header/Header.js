@@ -54,7 +54,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				
 				if( ! isInBuilderMode && ! subtitle ) {
 					$(selector + ' #headerDesktop .title').css("margin-top", 40);
-					$(selector + ' #headerDesktop .subtitle').css("height", 32).attr("tabindex", "-1");
+					$(selector + ' #headerDesktop .subtitle').css("height", 32);
 				}
 	
 				// Mobile init

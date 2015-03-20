@@ -161,7 +161,14 @@ define(["storymaps/maptour/core/WebApplicationData",
 					//Carousel accepts right/left arrow keys for changing photo selection (these bubble up to the body)
 					// TODO: Also accept shift right/left arrow to advance the carousel
 					// requires changing the next/prev photo functions to advance to the next *or* first/last *visible* photo
-
+					$('#footerDesktop').keydown(function(e){
+						if ( e.which == 39  && e.shiftKey ) {
+							app.desktopCarousel.scrollForward();
+						}
+						else if ( e.which == 37  && e.shiftKey ) {
+							app.desktopCarousel.scrollBackward();
+						}
+					});
 
 					//The body accepts right/left arrow keys for changing photo selection
 					//   and up/down keys for showing/hiding photo description

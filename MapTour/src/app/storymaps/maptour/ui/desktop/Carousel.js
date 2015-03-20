@@ -175,7 +175,15 @@ define(["dojo/has",
 					// Process the event with a delay to be sure that isMoveEvent has been correctly set
 					setTimeout(function(){ onUserClickTimed(e); } , 50);
 			}
-			
+
+			this.scrollBackward = function () {
+				onArrowClick(-1);
+			};
+
+			this.scrollForward = function () {
+				onArrowClick(1);
+			};
+
 			function onUserClickTimed(e)
 			{
 				var index = $(e.target).closest("li").index();

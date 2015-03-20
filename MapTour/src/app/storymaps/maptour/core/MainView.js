@@ -202,62 +202,6 @@ define(["storymaps/maptour/core/WebApplicationData",
 						}
 					);
 				}
-
-				// See http://a11yproject.com/posts/never-remove-css-outlines/
-				// Prevent focus on mousedown but allow it with keyboard
-				/*
-				$("body").on("mousedown", "*", function(e) {
-					if (($(this).is(":focus") || $(this).is(e.target)) && $(this).css("outline-style") == "none") {
-						$(this).css("outline", "none").on("blur", function() {
-							$(this).off("blur").css("outline", "");
-						});
-					}
-				});
-				*/
-				
-				// Detect focus on the title to avoid losing the current point if 
-				//  the app has previously navigated using the mouse
-				/*
-				var preventTitleFocusAction = false;
-				$("#headerDesktop .title").click(function(){
-					preventTitleFocusAction = true;
-				});
-				
-				$("#headerDesktop .title").focusin(function(e){
-					setTimeout(function(){
-						if ( ! preventTitleFocusAction ) {
-							if ( app.data.getCurrentIndex() > 0 ) { //  && ! e.relatedTarget
-								if ( app.data.getCurrentIndex() < app.data.getNbPoints() - 1 )
-									topic.publish("CAROUSEL_CLICK", app.data.getCurrentIndex() + 1);
-							}
-						}
-						
-						preventTitleFocusAction = false;
-					}, 300);
-				});
-				*/
-				
-				/*
-				$(document).on('keydown', function(e){
-					if( e.keyCode === 9 ) {
-						var focusElem = $(":focus");
-						
-						if ( ! focusElem.length ) {
-							setTimeout(function(){
-								if ( ! e.shiftKey  ) {
-									if ( app.data.getCurrentIndex() < app.data.getNbPoints() - 1 )
-										topic.publish("CAROUSEL_CLICK", app.data.getCurrentIndex() + 1);
-								}
-								else {
-									if ( app.data.getCurrentIndex() > 0 )
-										topic.publish("CAROUSEL_CLICK", app.data.getCurrentIndex() - 1);
-								}
-							}, 50);
-							
-						}
-					}
-				});
-				*/
 				
 				if( has("touch") )
 					$("body").addClass("hasTouch");

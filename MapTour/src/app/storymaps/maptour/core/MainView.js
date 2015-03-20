@@ -158,8 +158,10 @@ define(["storymaps/maptour/core/WebApplicationData",
 						}
                     });
 
-					//Carousel accepts right/left arrow keys for changing photo selection
-					//let these bubble up to the body
+					//Carousel accepts right/left arrow keys for changing photo selection (these bubble up to the body)
+					// TODO: Also accept shift right/left arrow to advance the carousel
+					// requires changing the next/prev photo functions to advance to the next *or* first/last *visible* photo
+
 
 					//The body accepts right/left arrow keys for changing photo selection
 					//   and up/down keys for showing/hiding photo description

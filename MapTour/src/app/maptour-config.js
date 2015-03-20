@@ -15,8 +15,8 @@ APPCFG = {
 	HEADER_LINK_URL: "http://www.nps.gov/AKSO",
 	// Control display of Facebook and Twitter links
 	HEADER_SOCIAL: {
-		facebook: true,
-		twitter: true,
+		facebook: false,
+		twitter: false,
 		bitly: {
 			enable: false,
 			login: "esristorymaps",

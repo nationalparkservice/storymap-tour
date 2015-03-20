@@ -25,7 +25,7 @@ APPCFG = {
 	},
 	
 	// Header, Picture Panel and Carousel colors
-	COLORS: ["#000", "#737c6c", "#a8b09e"],
+	COLORS: ["#000", "#819355", "#AFBD8E"],
 	
 	// Map popup colors
 	POPUP_BACKGROUND_COLOR: "#444444", 
@@ -154,9 +154,9 @@ APPCFG = {
 	
 	COLOR_SCHEMES:  [
 		// COLORS is added as the first item at runtime
-		{name: "Black", headerColor: "#000", middleColor: "#B4B4B4", footerColor: "#E5E5E5"},
-		{name: "Blue", headerColor: "#000", middleColor: "#5d6f89", footerColor: "#9096a9"},
-		{name: "Brown", headerColor: "#000", middleColor: "#aa7942", footerColor: "#e5c8a7"}
+		{name: "Slate", headerColor: "#000", middleColor: "#908D7C", footerColor: "#AEAC9F"},
+		{name: "Beige", headerColor: "#000", middleColor: "#D3CEBC", footerColor: "#F5F0DD"},
+		{name: "Tan", headerColor: "#000", middleColor: "#DDC78F", footerColor: "#C8A54B"}
 	],
 	
 	WEBAPP_KEYWORD_GENERIC: ["JavaScript", "Map", "Mapping Site", "Online Map", "Ready To Use", "selfConfigured", "Web Map"],
@@ -172,8 +172,4 @@ APPCFG = {
 	DEFAULT_SHARING_URL: "//gisportal.nps.gov/arcgis/sharing/content/items",
 	//DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
 	DEFAULT_PROXY_URL: "//gisportal.nps.gov/arcgis/sharing/proxy"
-	//Testing src with Portal map:
-	//  Angel's Dutch harbor map:  http://localhost/dev/maptour/?appid=91b7c7e6f64b4f5688ca56014b4b7c07
-	//  My Aniakchak Caldera Map:  http://localhost/dev/maptour/?appid=0436a313fa104ea489595daf90f9d023
-	//Testing src with AGOL map: http://localhost/dev/maptour/?appid=c89f683b00b445b58a87ec8dc461584b
 };

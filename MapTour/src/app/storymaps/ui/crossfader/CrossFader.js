@@ -421,6 +421,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 			this.hidePlacard = function()
 			{
 				if (_placardIsUnder) return;
+				//If link on placard has focus move focus to container before it gets lost
+				if ($(_placardContainer2).find('a :focus')) {
+					$(_current).focus();
+				}
 				$(_toggle).toggleClass('closed', true);
 				$(_placardContainer2).slideUp();
 			};

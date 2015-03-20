@@ -159,14 +159,7 @@ define(["storymaps/maptour/core/WebApplicationData",
                     });
 
 					//Carousel accepts right/left arrow keys for changing photo selection
-					//$('#footerDesktop').keydown(function(e){
-					//	if( e.which == 39 ) {
-					//		loadNextPicture();
-					//	}
-					//	else if ( e.which == 37 ) {
-					//		loadPrevPicture();
-					//	}
-					//});
+					//let these bubble up to the body
 
 					//The body accepts right/left arrow keys for changing photo selection
 					//   and up/down keys for showing/hiding photo description
@@ -189,7 +182,7 @@ define(["storymaps/maptour/core/WebApplicationData",
 					//Picture panel arrow key is behavior is the default for the body, so let it bubble up
 					//   and enter/space for selecting showing the photo in colorbox
 					$('#picturePanel').keydown(function(e){
-						if( e.which == 13 || e.which == 32 ) {
+						if( (e.which == 13 || e.which == 3 ) && e.target.nodeName === "DIV"  ) {
 							app.desktopPicturePanel.showFullScreen();
 						}
 					});

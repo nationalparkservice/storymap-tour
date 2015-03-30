@@ -116,7 +116,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					$(".modern-layout-control").toggleClass("hover", !! isHoverPicture);
 			});
 
-			$('#cfader').focus(function(){
+			$([_container1,_container2]).focus(function(){
 				_fullScreenBtn.toggleClass("hover", true);
 				$(".modern-layout-control").toggleClass("hover", true);
 			}).blur(function(){

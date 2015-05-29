@@ -1,4 +1,4 @@
-@media screen and (min-width: 768px) and (orientation:landscape) {
+@media screen and (min-width: 668px) and (orientation:landscape) {
 	#listPanel, #infoPanel, #introPanel {
 		display: none !important;
 	}
@@ -8,7 +8,7 @@
 	}
 }
 
-@media only screen and (min-device-width : 768px)  and (max-device-width : 1024px)  and (orientation : landscape) {
+@media only screen and (min-device-width : 668px)  and (max-device-width : 1024px)  and (orientation : landscape) {
 	/*
 	 *  iPad rules 
 	 */
@@ -21,13 +21,13 @@
 	}
 }
 
-@media screen and (min-width: 768px) and (orientation:portrait) {
+@media screen and (min-width: 668px) and (orientation:portrait) {
 	#picturePanel {
 		display: none !important;
 	}
 }
 
-@media screen and (max-width: 767px), screen and (orientation:portrait) {
+@media screen and (max-width: 667px), screen and (orientation:portrait) {
 	#headerDesktop {
 		display: none;
 	}

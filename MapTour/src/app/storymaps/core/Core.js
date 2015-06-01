@@ -750,17 +750,7 @@ define(["esri/map",
 		{
 			window.location = app.isPortal && APPCFG.HELP_URL_PORTAL ? APPCFG.HELP_URL_PORTAL : APPCFG.HELP_URL;
 		}
-		
-		function redirectToSignIn()
-		{
-			loadingIndicator.setMessage(i18n.viewer.loading.redirectSignIn + "<br />" + i18n.viewer.loading.redirectSignIn2);
-			setTimeout(function(){
-				window.location = arcgisUtils.arcgisUrl.split('/sharing/')[0] 
-					+ "/home/signin.html?returnUrl=" 
-					+ encodeURIComponent(document.location.href);
-			}, 2000);
-		}
-		
+        
 		function redirectToBuilderFromGallery()
 		{
 			// TODO display another redirect message

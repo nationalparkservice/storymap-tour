@@ -302,8 +302,8 @@ define(["esri/map",
 			else if( webmapId )
 				loadWebMap(webmapId);
 			// Direct creation and not signed-in
-			else if ( app.isDirectCreation && isProd() && ! Helper.getPortalUser() )
-				redirectToSignIn();
+			//else if ( app.isDirectCreation && isProd() && ! Helper.getPortalUser() )
+			//	redirectToSignIn();
 			// Direct creation and signed in  OR  Direct creation and developer mode
 			else if ( app.isDirectCreation )
 				portalLogin().then(function(){

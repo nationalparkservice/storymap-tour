@@ -202,30 +202,36 @@
 			<div id="openHeaderMobile"></div>
 			<!-- Desktop header -->
 			<div id="headerDesktop">
-				<div class="rightArea">
-					<div class="social">
-						<i class="shareIcon share_facebook icon-facebook-squared-1" title="Share on Facebook" tabindex="0"></i>
-						<i class="icon-twitter-1 shareIcon share_twitter" title="Share on Twitter" tabindex="0"></i>
-						<i class="icon-link shareIcon share_bitly" title="Share a short link" tabindex="0"></i>
+				<div id="npsbanner">
+					<div id="parkShortName"></div>
+					<div id="parkDetailName">
+						<div id="unitType"></div>
+						<div id="parkLocation"></div>
 					</div>
-					<div class="organization">
-						<div class="unit">
-							<a href="http://www.nps.gov/AKSO" target="_blank"></a>
+					<div class="orgLogo">
+						<h2><a href="http://www.nps.gov" target="blank">National Park Service</a></h2>
+						<a href="http://www.nps.gov" target="blank"><img src="resources/icons/ArrowheadNoBackground.png" height="55" alt="National Park Service Arrowhead"></a>
+					</div>
+				</div>
+				<div class="mapTitle">
+					<div class="rightArea">
+						<div class="social">
+							<i class="shareIcon share_facebook icon-facebook-squared-1" title="Share on Facebook" tabindex="0"></i>
+							<i class="icon-twitter-1 shareIcon share_twitter" title="Share on Twitter" tabindex="0"></i>
+							<i class="icon-link shareIcon share_bitly" title="Share a short link" tabindex="0"></i>
 						</div>
-						<div class="agency">National Park Service</div>
-						<div class="department">U.S. Department of the Interior</div>
+						<div class="logo">
+							<a target="_blank">
+								<img alt="Map Tour logo" class="headerLogoImg"/>
+							</a>
+						</div>
 					</div>
-					<div class="logo">
-						<a  href="http://www.nps.gov" target="_blank">
-							<img alt="National Park Service Logo" class="headerLogoImg"/>
-						</a>
+					<div class="textArea titleArea">
+						<h1 class="title"></h1>
+						<h2 class="subtitle"></h2>
 					</div>
 				</div>
-				<div class="textArea">
-					<h1 class="title"></h1>
-					<h2 class="subtitle"></h2>
-				</div>
-				<button type="button" class="switchBuilder btn"></button>
+				<button type="button" class="switchBuilder btn" tabindex="-1"></button>
 				<!-- Builder top panel -->
 				<div id="builderPanel">
 					<h4></h4>
@@ -849,8 +855,8 @@
 				</div>
 				<!-- Header -->
 				<div id="settings-header" class="tab-content">
-					<p></p>
-					<form class="form-horizontal form1">
+					<p style="display:none;"></p>
+					<form class="form-horizontal form1" style="display:none;">
 						<div class="control-group">
 							<div class="controls">
 								<label class="radio">

@@ -1,12 +1,14 @@
 define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 		"storymaps/utils/Helper",
 		"dojo/has", 
-		"dojo/topic"], 
+		"dojo/topic",
+        "./units"],
 	function(
 		InlineFieldEdit,
 		Helper, 
 		has, 
-		topic
+		topic,
+        units
 	){
 		/**
 		 * Header
@@ -76,7 +78,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				showMobileHeader(true);
 				this.setTopRightLink(topLinkText, topLinkURL);
 				this.setSocial(social, true);
-				
+
 				$(selector).css("display", "block");
 				
 				app.requestBitly = requestBitly;
@@ -135,8 +137,35 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					$(selector + ' .organization .unit').html(text);
 				else 
 					$(selector + ' .organization .unit').html('');
+                setNPSBanner(text, link)
 			};
-			
+
+            function setNPSBanner(unitcode, link)
+            {
+                if (unitcode in units) {
+                    if (link) {
+                        $("#parkShortName").html('<a href="'+link + '" target="blank">' + units[unitcode].name + '</a>');
+                    } else {
+                        $("#parkShortName").html(units[unitcode].name);
+                    }
+                    $("#unitType").html(units[unitcode].type);
+                    $("#parkLocation").html(units[unitcode].state);
+                } else {
+                    var headerparts = unitcode.split("|");
+                    if (link) {
+                        $("#parkShortName").html('<a href="'+link + '" target="blank">' + headerparts[0] + '</a>');
+                    } else {
+                        $("#parkShortName").html(headerparts[0]);
+                    }
+                    if (headerparts.length > 1) {
+                        $("#unitType").html(headerparts[1]);
+                    }
+                    if (headerparts.length > 2) {
+                        $("#parkLocation").html(headerparts[2]);
+                    }
+                }
+            }
+
 			this.setTitleAndSubtitle = function(title, subtitle)
 			{
 				$(selector + ' #headerMobile .title').html(title);

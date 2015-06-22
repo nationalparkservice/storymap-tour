@@ -37,12 +37,13 @@
 
 .rightArea {
   position: absolute;
-  right: 0px;
-  top: 0px;
-  padding-top: 5px;
-  padding-right: 15px;
+  right: 25px;
+  top: 0;
+  padding-top: 9px;
+  padding-right: 25px;
   text-align: right;
   font-size: 80%;
+  color: white;
 }
 
 .rightArea .social {
@@ -50,26 +51,179 @@
   margin-bottom: 6px;
 }
 
+
 .rightArea .logo {
-  float: right;
-  height: 80px;
-  padding-top: 12px;
-  border: none;
-  outline: none;
-}
-.rightArea .organization {
-  float: left;
-  padding-right: 12px;
-  padding-top: 27px;
+    display:none;
 }
 
-.rightArea .logo img {
-  max-width: 105px;
-  max-height: 105px;
-  margin: 0;
+/*
+ * NPS Header Area
+ */
+#npsbanner {
+    /* Transparent strip behind text */
+    /* Creates the solid bg for IE8 */
+    background: rgb(0, 0, 0);
+    /* Creates the optionally transparent bg for ALL OTHER BROWSERS */
+    background: rgba(0, 0, 0, 1.0);
+    color: #fff;
+    height: 111px;
+    width: 100%;
+    overflow:hidden;
 }
 
-.organization a {
-  color: #fff;
-  font-weight:normal;
+#parkShortName {
+    display: table;
+    float: left;
+    height: 79px;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 40px;
+    font-weight: normal;
+    letter-spacing: -0.7px;
+    line-height: 79px;
+    margin: 0;
+    padding: 0 0 0 25px;
+}
+
+#parkShortName a:link, a:visited{
+    color: #fff;
+    text-decoration: none;
+}
+
+#parkShortName a:hover, a:active{
+    color: #fff;
+    text-decoration: underline;
+}
+
+#parkDetailName {
+    display: inline-block;
+    vertical-align: middle;
+    height: 40px;
+    float: left;
+    padding-left: 15px;
+    padding-top: 19px;
+}
+
+#unitType {
+    display: inline-block;
+    vertical-align: middle;
+    color: #fff;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+    margin: 0;
+    float: left;
+    clear: both;
+}
+
+#parkLocation {
+    display: inline-block;
+    vertical-align: middle;
+    color: #fff;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 13px;
+    margin-bottom: 0;
+    line-height: 20px;
+    float: left;
+    clear: both;
+}
+
+.orgLogo {
+    display: table;
+    height: 79px;
+    float: right;
+    padding-right: 25px;
+}
+
+.orgLogo h2  {
+    color: #fff;
+    display: table-cell;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    margin: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    padding-right: 10px
+}
+
+.orgLogo h2 a:link, a:visited  {
+    color: #fff;
+    text-decoration: none;
+}
+
+.orgLogo h2 a:hover, h2 a:active {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.orgLogo a {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left:10px
+}
+
+.mapTitle {
+    background: #5e7630;
+    color: #fff;
+    height: 36px;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 79px;
+    padding-left: 25px;
+}
+
+.titleArea {
+    padding:0;
+    margin:0;
+    display: table;
+    height: 36px;
+    float: left;
+}
+/* Option 1 - title and subtitle
+#headerDesktop .title {
+    height:22px;
+    margin-top: 0px;
+    padding-top: 0px;
+    font-size:20px;
+    font-weight:normal;
+    text-align:left;
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+#headerDesktop .subtitle {
+    font-size: 10px;
+    margin-top: 2px;
+    overflow: hidden;
+    overflow-y: auto;
+    font-weight: normal;
+    line-height: 12px;
+    word-wrap: break-word;
+    height: 12px;
+}
+*/
+
+/* Option 2 - Just Title */
+#headerDesktop .title {
+    height: 33px;
+    padding-top:3px;
+    font-size:24px;
+    font-weight:normal;
+    text-align:left;
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+#headerDesktop .subtitle {
+    display:none;
+}
+
+.shareIcon {
+    color: white;
+}
+
+.shareIcon:hover {
+    color: #C8DEA8;
 }

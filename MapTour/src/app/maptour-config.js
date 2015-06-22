@@ -149,8 +149,8 @@ APPCFG = {
 	// This Youtube key is valid for application running on arcgis.com and esri.com domains
 	// If the application is deployed on Portal for ArcGIS or your own server, the Youtube api call 
 	//  won't be perfomed until you set the following flag and provide your own key
-	YOUTUBE_DISABLE_ON_PORTAL: true,
-	YOUTUBE_API_KEY: "AIzaSyDevTFP16nz6sA-akiOVi6wWXiplJnQ4qw",
+	YOUTUBE_DISABLE_ON_PORTAL: false,
+	YOUTUBE_API_KEY: "AIzaSyCL0LWXaLRPW_MclPK4-aQJvPpboakP-Ao",
 	
 	COLOR_SCHEMES:  [
 		// COLORS is added as the first item at runtime

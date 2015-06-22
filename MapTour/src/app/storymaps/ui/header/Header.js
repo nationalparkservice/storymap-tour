@@ -54,10 +54,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				if( isInBuilderMode )
 					new InlineFieldEdit(selector, editFieldsEnterEvent, editFieldsExitEvent);
 				
-				if( ! isInBuilderMode && ! subtitle ) {
-					$(selector + ' #headerDesktop .title').css("margin-top", 40);
-					$(selector + ' #headerDesktop .subtitle').css("height", 32);
-				}
+				//if( ! isInBuilderMode && ! subtitle ) {
+				//	$(selector + ' #headerDesktop .title').css("margin-top", 40);
+				//	$(selector + ' #headerDesktop .subtitle').css("height", 32);
+				//}
 	
 				// Mobile init
 				$(window).scroll(this.hideMobileBanner);

@@ -137,7 +137,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					$(selector + ' .organization .unit').html(text);
 				else 
 					$(selector + ' .organization .unit').html('');
-                setNPSBanner(text, link)
+                setNPSBanner(text, link);
 			};
 
             function setNPSBanner(unitcode, link)

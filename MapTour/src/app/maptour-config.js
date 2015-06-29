@@ -15,10 +15,10 @@ APPCFG = {
 	HEADER_LINK_URL: "http://www.nps.gov/AKSO",
 	// Control display of Facebook and Twitter links
 	HEADER_SOCIAL: {
-		facebook: false,
-		twitter: false,
+		facebook: true,
+		twitter: true,
 		bitly: {
-			enable: false,
+			enable: true,
 			login: "esristorymaps",
 			key: "R_14fc9f92e48f7c78c21db32bd01f7014"
 		}
@@ -168,8 +168,8 @@ APPCFG = {
 	// Edit those to set a custom sharing or proxy URL
 	// You have to edit those only if your webmap is deployed on Portal for ArcGIS instance and if you are not deploying the template on the Portal webserver
 	// If you are using ArcGIS Online or deploying the template on a Portal instance, you don't have to edit those URL
-	//DEFAULT_SHARING_URL: "//www.arcgis.com/sharing/content/items",
-	DEFAULT_SHARING_URL: "//gisportal.nps.gov/arcgis/sharing/content/items",
-	//DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
-	DEFAULT_PROXY_URL: "//gisportal.nps.gov/arcgis/sharing/proxy"
+	DEFAULT_SHARING_URL: "//www.arcgis.com/sharing/content/items",
+	//DEFAULT_SHARING_URL: "//gisportal.nps.gov/arcgis/sharing/content/items",
+	DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
+	//DEFAULT_PROXY_URL: "//gisportal.nps.gov/arcgis/sharing/proxy"
 };

@@ -1,4 +1,4 @@
-﻿var units = {
+﻿define({
 "INAU":{"name":"2013 Presidential Inauguration","type":"","state":"District of Columbia"},
 "ABLI":{"name":"Abraham Lincoln Birthplace","type":"National Historical Park","state":"Kentucky"},
 "ACAD":{"name":"Acadia","type":"National Park","state":"Maine"},
@@ -500,4 +500,4 @@
 "YUCH":{"name":"Yukon - Charley Rivers","type":"National Preserve","state":"Alaska"},
 "YUCR":{"name":"Yuma Crossing","type":"National Heritage Area","state":"Arizona"},
 "ZION":{"name":"Zion","type":"National Park","state":"Utah"}
-};
+});

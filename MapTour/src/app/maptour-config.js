@@ -15,10 +15,10 @@ APPCFG = {
 	HEADER_LINK_URL: "http://www.nps.gov/AKSO",
 	// Control display of Facebook and Twitter links
 	HEADER_SOCIAL: {
-		facebook: false,
-		twitter: false,
+		facebook: true,
+		twitter: true,
 		bitly: {
-			enable: false,
+			enable: true,
 			login: "esristorymaps",
 			key: "R_14fc9f92e48f7c78c21db32bd01f7014"
 		}
@@ -139,16 +139,14 @@ APPCFG = {
 		youtube: true
 	},
 
-	// The Facebook ID is only valid on arcgis.com domain
 	// Online photo sharing services connection parameters
 	FLICKR_API_KEY: "750b36a2ac65a72e03cf9cef06d79f45",
+    // The Facebook ID is only valid on arcgis.com domain
 	// If used on another domain, user will have an error in the Facebook popup after login
 	// To use Facebook import on Portal for ArcGIS, create your own ID at https://developers.facebook.com/ 
 	// or set AUTHORIZED_IMPORT_SOURCE.facebook to false
 	FACEBOOK_APP_ID: "471023926309627",
-	// This Youtube key is valid for application running on arcgis.com and esri.com domains
-	// If the application is deployed on Portal for ArcGIS or your own server, the Youtube api call 
-	//  won't be perfomed until you set the following flag and provide your own key
+	// This Youtube key is valid for application running on the nps.gov domains
 	YOUTUBE_DISABLE_ON_PORTAL: false,
 	YOUTUBE_API_KEY: "AIzaSyCL0LWXaLRPW_MclPK4-aQJvPpboakP-Ao",
 	
@@ -168,8 +166,8 @@ APPCFG = {
 	// Edit those to set a custom sharing or proxy URL
 	// You have to edit those only if your webmap is deployed on Portal for ArcGIS instance and if you are not deploying the template on the Portal webserver
 	// If you are using ArcGIS Online or deploying the template on a Portal instance, you don't have to edit those URL
-	//DEFAULT_SHARING_URL: "//www.arcgis.com/sharing/content/items",
-	DEFAULT_SHARING_URL: "//gisportal.nps.gov/arcgis/sharing/content/items",
-	//DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
-	DEFAULT_PROXY_URL: "//gisportal.nps.gov/arcgis/sharing/proxy"
+	DEFAULT_SHARING_URL: "//www.arcgis.com/sharing/content/items",
+	//DEFAULT_SHARING_URL: "//gisportal.nps.gov/arcgis/sharing/content/items",
+	DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
+	//DEFAULT_PROXY_URL: "//gisportal.nps.gov/arcgis/sharing/proxy"
 };

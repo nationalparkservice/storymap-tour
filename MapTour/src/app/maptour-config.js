@@ -15,8 +15,8 @@ APPCFG = {
 	HEADER_LINK_URL: "http://www.nps.gov/AKSO",
 	// Control display of Facebook and Twitter links
 	HEADER_SOCIAL: {
-		facebook: true,
-		twitter: true,
+		facebook: false,
+		twitter: false,
 		bitly: {
 			enable: true,
 			login: "esristorymaps",
@@ -160,14 +160,14 @@ APPCFG = {
 	WEBAPP_KEYWORD_GENERIC: ["JavaScript", "Map", "Mapping Site", "Online Map", "Ready To Use", "selfConfigured", "Web Map"],
 	WEBAPP_KEYWORD_APP: ["Story Map", "Story Maps", "Map Tour", "MapTour"],
 	
-	// Optional array of server that will leverage CORS (for developement or specific cross domain deployment)
+	// Optional array of server that will leverage CORS (for development or specific cross domain deployment)
 	CORS_SERVER: [],
 	
 	// Edit those to set a custom sharing or proxy URL
 	// You have to edit those only if your webmap is deployed on Portal for ArcGIS instance and if you are not deploying the template on the Portal webserver
 	// If you are using ArcGIS Online or deploying the template on a Portal instance, you don't have to edit those URL
-	DEFAULT_SHARING_URL: "//www.arcgis.com/sharing/content/items",
-	//DEFAULT_SHARING_URL: "//gisportal.nps.gov/arcgis/sharing/content/items",
-	DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
-	//DEFAULT_PROXY_URL: "//gisportal.nps.gov/arcgis/sharing/proxy"
+	//DEFAULT_SHARING_URL: "//www.arcgis.com/sharing/content/items",
+	//DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
+    DEFAULT_SHARING_URL: "//gisportal.nps.gov/arcgis/sharing/content/items",
+	DEFAULT_PROXY_URL: "//gisportal.nps.gov/arcgis/sharing/proxy"
 };

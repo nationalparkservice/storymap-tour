@@ -6,12 +6,13 @@ The Story Map Tour app is ideal when you want to present a linear, place-based n
 ![App](https://raw.githubusercontent.com/Esri/map-tour-storytelling-template-js/master/map-tour-storytelling-template-js.png)
 
 [View it live](http://storymaps.esri.com/stories/maptour-palmsprings/) | 
-[Features](http://arcgis.com/apps/MapTour/preview.html) | 
-[User Download (source code not included)](http://links.esri.com/storymaps/map_tour_template_zip) | 
-[Developer Download](https://github.com/Esri/map-tour-storytelling-template-js/archive/master.zip) 
+[Map Tour page on Esri Story Maps website](http://storymaps.arcgis.com/en/app-list/map-tour/) | 
+[Download](http://links.esri.com/storymaps/map_tour_template_zip) 
 
-**Latest release is version 2.4.0**, if you want to be informed of new releases, we recommend you to watch these repository ([see GitHub help](https://help.github.com/articles/watching-repositories)).
+**Latest release is version 2.5.0**, if you want to be informed of new releases, we recommend you to watch these repository ([see GitHub help](https://help.github.com/articles/watching-repositories)).
 See the [release page](https://github.com/Esri/map-tour-storytelling-template-js/releases) for release notes.
+
+For more infomation about using and customizing Esri's Storytelling Apps follow the [Story Maps Developers' Corner](https://developerscorner.storymaps.arcgis.com).
 
 The template produces an attractive, easy-to-use web application that lets you present a small set of places on a map in a numbered sequence through which users can browse. The template is designed to be used in any web browser on any device, including smartphones and tablets. 
 If you are not familiar with ArcGIS Online or StoryMaps concepts, [that document](http://storymaps.esri.com/downloads/Building%20Story%20Maps.pdf) describe general workflows and best practices.
@@ -49,7 +50,7 @@ Applications produced by both versions provides the same capabilities, only the 
 
 To use the hosted Map Tour template, you start by making a web map and publishing it with the Map Tour template.
 Your webmap doesn't need to contains any layer. In the **Share dialog available from ArcGIS Online web map viewer**, choose the **'Make a Web Application'** option and then choose the Map Tour template from the gallery of templates that appears, and continue with the steps that you see. When you configure the application, the interactive builder will open automatically.
-[This article (require an ArcGIS developer account)](https://developers.arcgis.com/en/tools/web-mapping-templates/) provides generic step-by-step instructions on how to publish a template. 
+[This article](http://doc.arcgis.com/en/arcgis-online/create-maps/make-your-first-app.htm) provides step-by-step instructions on how to create a story. 
 
 The interactive builder gives you two options for handling the images in your Map Tour:
  * You can use **photos that are already online**, such as images stored in a photo sharing site like Flickr or images stored on your own website. These images will be referenced in your Map Tour via their URLs
@@ -252,9 +253,9 @@ Configuration happens in three files:
   - Data fields election rules
   - Data import from online service
   - Portal and proxy URLs
- * app/commonConfig.js
   - Bing map key
   - Geometry and geocode services URLs
+  - Proxy rules
 
 ### Which web map layer will be used?
 The application will use the web map **upper visible point feature layer**. 

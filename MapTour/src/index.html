@@ -33,7 +33,7 @@
 
 		<script type="text/javascript">
 			//----------------------------------------------------
-			//     Template configuration (ignored on Portal)
+			//     Template configuration (always ignored - fix line 120 in core.js to use)
 			//----------------------------------------------------
 			configOptions = {
 				// Enter either a web map ID or a web application ID
@@ -158,6 +158,7 @@
 				loadCSS("app/storymaps/maptour/ui/mobile/ListView.css");
 				loadCSS("app/storymaps/maptour/ui/mobile/InfoView.css");
 				loadCSS("app/storymaps/maptour/ui/Responsive.css");
+				loadCSS("app/storymaps/maptour/ui/nps.css");
 			}
 
 			var dojoConfig = {
@@ -202,24 +203,34 @@
 			<div id="openHeaderMobile"></div>
 			<!-- Desktop header -->
 			<div id="headerDesktop">
-				<div class="rightArea">
-					<div class="social">
-						<span class="msLink">
-							<a href="http://storymaps.arcgis.com" target="_blank" tabindex="-1"></a>
-						</span>
-						<i class="shareIcon share_facebook icon-facebook-squared"></i>
-						<i class="icon-twitter shareIcon share_twitter"></i>
-						<i class="icon-link shareIcon share_bitly"></i>
+				<div id="npsbanner">
+					<div id="parkShortName"></div>
+					<div id="parkDetailName">
+						<div id="unitType"></div>
+						<div id="parkLocation"></div>
 					</div>
-					<div class="logo">
-						<a target="_blank">
-							<img alt="Map Tour logo" class="headerLogoImg"/>
-						</a>
+					<div class="orgLogo">
+						<h2><a href="http://www.nps.gov" target="blank">National Park Service</a></h2>
+						<a href="http://www.nps.gov" target="blank"><img src="resources/icons/ArrowheadNoBackground.png" height="55" alt="National Park Service Arrowhead"></a>
 					</div>
 				</div>
-				<div class="textArea">
-					<h1 class="title" tabindex="0"></h1>
-					<h2 class="subtitle" tabindex="0"></h2>
+				<div class="mapTitle">
+					<div class="rightArea">
+						<div class="social">
+							<i class="shareIcon share_facebook icon-facebook-squared-1" title="Share on Facebook" tabindex="0"></i>
+							<i class="icon-twitter-1 shareIcon share_twitter" title="Share on Twitter" tabindex="0"></i>
+							<i class="icon-link shareIcon share_bitly" title="Share a short link" tabindex="0"></i>
+						</div>
+						<div class="logo">
+							<a target="_blank">
+								<img alt="Map Tour logo" class="headerLogoImg"/>
+							</a>
+						</div>
+					</div>
+					<div class="textArea titleArea">
+						<h1 class="title"></h1>
+						<h2 class="subtitle"></h2>
+					</div>
 				</div>
 				<button type="button" class="switchBuilder btn" tabindex="-1"></button>
 				<!-- Builder top panel -->
@@ -241,7 +252,7 @@
 		<div id="contentPanel" class="mobileView">
 			<!-- Map panel -->
 			<div id="mapPanel">
-				<div id="mainMap">
+				<div id="mainMap" tabindex="0">
 					<div id="hoverInfo"></div>
 				</div>
 				<!-- Builder switch basemap -->
@@ -337,7 +348,7 @@
 		<!-- Footer -->
 		<div id="footer">
 			<!-- Desktop footer -->
-			<div id="footerDesktop">
+			<div id="footerDesktop" tabindex="0">
 				<div class="carousel">
 					<img class="arrowLeft" aria-hidden="true" alt="Navigate carousel backward"/>
 					<div class="carouselWrapper">
@@ -919,8 +930,8 @@
 				</div>
 				<!-- Header -->
 				<div id="settings-header" class="tab-content">
-					<p></p>
-					<form class="form-horizontal form1">
+					<p style="display:none;"></p>
+					<form class="form-horizontal form1" style="display:none;">
 						<div class="control-group">
 							<div class="controls">
 								<label class="radio">
@@ -1225,6 +1236,7 @@
 				loadJS('lib/bootstrap.file-input.js');
 				loadJS('lib/colorbox/jquery.colorbox-min.js');
 				loadJS('lib/bootstrap-slider/js/bootstrap-slider.js');
+				loadJS('lib/outline.js');
 			}
 		</script>
 		

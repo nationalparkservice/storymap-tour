@@ -56,8 +56,8 @@ define(["storymaps/utils/Helper"],
 					_logoTargetInput.removeAttr("disabled");
 				}
 				
-				$("#selectSocialText", contentContainer).val(settings.linkText);
-				$("#selectSocialLink", contentContainer).val(settings.linkURL);
+				$("#selectSocialText", contentContainer).val(settings.linkText).change(onSocialTextChanged);
+				$("#selectSocialLink", contentContainer).val(settings.linkURL).change(onSocialLinkChanged);
 				
 				// iPad keyboard workaround
 				$("#selectSocialText", contentContainer).blur(function(){ $(window).scrollTop(0); });
@@ -148,8 +148,26 @@ define(["storymaps/utils/Helper"],
 			function onLogoLoadComplete()
 			{
 			}
-			
-			function onLogoLoadError() 
+
+            var _linkChangedManually = false;
+
+            function onSocialTextChanged()
+            {
+                if (_linkChangedManually) return;
+                var linkText = $("#selectSocialText", contentContainer).val() || '';
+                linkText = linkText.replace(/<\/?script>/g,'');
+                if (linkText.indexOf("|") == -1) {
+                    var linkURL = "http://www.nps.gov/" + linkText;
+                    $("#selectSocialLink", contentContainer).val(linkURL);
+                }
+            }
+
+            function onSocialLinkChanged()
+            {
+                _linkChangedManually = true;
+            }
+
+            function onLogoLoadError()
 			{
 				_badLogo = true;			
 				$("#imgLogo", contentContainer).hide();

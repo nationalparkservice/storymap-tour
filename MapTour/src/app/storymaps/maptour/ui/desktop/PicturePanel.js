@@ -167,7 +167,25 @@ define(["storymaps/ui/crossfader/CrossFader",
 				if( isInBuilderMode && app.data.getCurrentAttributes() == null )
 					$(".editPictureButtons", panel).hide();
 			}
-	
+
+			function showFullScreen()
+			{
+				if( crossfader )
+					crossfader.fullScreen();
+			}
+
+			function showPlacard()
+			{
+				if( crossfader )
+					crossfader.showPlacard();
+			}
+
+			function hidePlacard()
+			{
+				if( crossfader )
+					crossfader.hidePlacard();
+			}
+
 			function updatePicture(picurl, name, caption, thumburl, buttonStatus, isModernLayout, placardIsUnder, mediaIsImg)
 			{
 				_isModernLayout = isModernLayout;
@@ -865,6 +883,9 @@ define(["storymaps/ui/crossfader/CrossFader",
 				updatePicture: updatePicture,
 				clean: clean,
 				resize: resize,
+				showFullScreen: showFullScreen,
+				showPlacard: showPlacard,
+				hidePlacard: hidePlacard,
 				saveEdits: saveEdits,
 				forceSaveEdits: forceSaveEdits,
 				update: update,

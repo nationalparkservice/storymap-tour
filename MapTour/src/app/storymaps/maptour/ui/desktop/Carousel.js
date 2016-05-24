@@ -109,51 +109,6 @@ define(["dojo/has",
 				updateArrows();
 				
 				$(selector + ' .carouselScroller ul').html(renderItem(slides)).removeAttr("aria-hidden");
-				
-				// When navigation with tab also navigate to the point (refresh picture panel and map)
-				$(selector + ' .carousel-item-div').focus(function(e){
-					var selectedIndex = $(selector + ' .carousel-item-div.selected').parents('li').index(),
-						focusIndex = $(this).parents('li').index();
-					
-					if ( selectedIndex != focusIndex) {
-						topic.publish("CAROUSEL_CLICK", focusIndex);
-						_navigationFromTab = true;
-					}
-				});
-				
-				// Logic to navigate away after the last point 
-				$(selector + ' .carousel-item-div').on('keydown', function(e){
-					var selectedIndex = $(selector + ' .carousel-item-div.selected').parents('li').index(),
-						focusIndex = $(this).parents('li').index();
-					
-					if( e.keyCode === 9 && ! event.shiftKey ) {
-						if ( selectedIndex == focusIndex && selectedIndex == $('.carousel-item-div').length - 1) {
-							// Focus out when embedded
-							if (window != window.top) {
-								return true;
-							}
-							
-							// TODO should not be done here
-							// TODO should also support tab+shift from there 
-							
-							// Add tabindex to the header righ area
-							// This need to be done dynamically to only navigate to them after the carousel
-							$("#headerDesktop .msLink *, #headerDesktop .shareIcon").attr("tabindex", "0");
-							
-							if ( $("#headerDesktop .msLink a").length )
-								$("#headerDesktop .msLink a")[0].focus();
-							else if ( $("#headerDesktop .msLink span").length )
-								$("#headerDesktop .msLink span")[0].focus();
-							else if ( $("#headerDesktop .shareIcon:visible").length )
-								$("#headerDesktop .shareIcon")[0].focus();
-							else
-								$("#headerDesktop .title")[0].focus();
-							
-							return false;
-						}
-					}
-				});
-				
 				_picDownloadedIndex = 14;
 				$(selector + ' .carouselScroller ul img').slice(0,_picDownloadedIndex).each(function(i, img){ 
 					$(img).attr("src", $(img).data("src"));
@@ -176,7 +131,7 @@ define(["dojo/has",
 					// The first div is necessary for vertical centering and the span around the image for the numbering
 					// The color specification though class is not ideal, but to have that more dynamic all the rest is a pain
 					carouselHTML += '<li>';
-					carouselHTML += ' <div class="carousel-item-div" tabindex="0">';
+					carouselHTML += ' <div class="carousel-item-div">';
 					carouselHTML += '  <span class="' + pinCssClass +'"><img data-src="' + slide.attributes.getThumbURL() + '" onerror="mediaNotFoundHandler(this)" /></span>';
 					carouselHTML += '  <div>' + ($('<div>' + slide.attributes.getName() + '</div>').html()) + '</div>';
 					// Insert a hidden description for text2speech so that the description immediately follow the point title
@@ -200,20 +155,6 @@ define(["dojo/has",
 				
 				$(selector + ' .carousel-item-div').removeClass("selected");
 				$(selector + ' .carousel-item-div').eq(index).addClass("selected");
-				
-				// Focus new carousel active item
-				if ( ! app.isLoading ) {
-					// Does carousel already has focus (through tab navigation)
-					var carouselHasFocus = !! $(":focus").parents("#footerDesktop").length;
-					
-					$(":focus").blur();
-					
-					if ( _navigationFromTab || carouselHasFocus )
-						$(selector + ' .carousel-item-div').eq(index).focus();
-					
-					_navigationFromTab = false;
-				}
-				
 				scrollToIndex(index);
 				updateArrows();
 			};
@@ -243,7 +184,15 @@ define(["dojo/has",
 					// Process the event with a delay to be sure that isMoveEvent has been correctly set
 					setTimeout(function(){ onUserClickTimed(e); } , 50);
 			}
-			
+
+			this.scrollBackward = function () {
+				onArrowClick(-1);
+			};
+
+			this.scrollForward = function () {
+				onArrowClick(1);
+			};
+
 			function onUserClickTimed(e)
 			{
 				var index = $(e.target).closest("li").index();

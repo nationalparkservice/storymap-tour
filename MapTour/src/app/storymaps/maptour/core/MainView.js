@@ -156,14 +156,87 @@ define(["storymaps/maptour/core/WebApplicationData",
 					that.onerror = '';
 				};
 				
-				// Keybord event for previous/next pictures in viewer mode
-				if( ! app.isInBuilderMode ) {
-					$(window).keyup(function(e){
-						// Enter or right arrow or down arrow or page down
-						if( e.keyCode == 13 || e.keyCode == 39 || e.keyCode == 34 )
+				//Viewer key mapping for accessibility keyboard navigation
+				// key up/down tab=9, enter=13, shift=16, escape=27, space=32, home=36, left arrow=37, up arrow=38, right arrow=39, down arrow=40, +=187/107, -=189/109
+				if(!app.isInBuilderMode) {
+					// Map accepts arrow keys for panning and +/- for zoom in/out
+					$('#mainMap').keydown(function(e){
+						if( e.which == 187 || e.which == 107) {
+							app.map.setZoom(app.map.getZoom() + 1);
+						}
+						else if( e.which == 189 || e.which == 109 ) {
+							app.map.setZoom(app.map.getZoom()-1);
+						}
+                        else if (e.which == 37 && e.shiftKey) {
+                            app.map.panLeft();
+							e.stopPropagation();
+                        }
+                        else if (e.which == 38 && e.shiftKey) {
+                            app.map.panUp();
+                        }
+                        else if (e.which == 39 && e.shiftKey) {
+                            app.map.panRight();
+                        }
+                        else if (e.which == 40 && e.shiftKey) {
+                            app.map.panDown();
+                        }
+                        else if (e.which == 37 && !e.altKey && !e.metaKey && !e.ctrlKey) {
+                            panMap('left',0.2);
+							e.stopPropagation();
+                        }
+                        else if (e.which == 38 && !e.altKey && !e.metaKey && !e.ctrlKey) {
+                            panMap('up', 0.2);
+							e.stopPropagation();
+                        }
+                        else if (e.which == 39 && !e.altKey && !e.metaKey && !e.ctrlKey) {
+                            panMap('right', 0.2);
+							e.stopPropagation();
+                        }
+                        else if (e.which == 40 && !e.altKey && !e.metaKey && !e.ctrlKey) {
+                            panMap('down', 0.2);
+							e.stopPropagation();
+                        }
+						else if (e.which == 36) {//home key
+							_this.setMapExtent(Helper.getWebMapExtentFromItem(app.data.getWebMapItem().item));
+						}
+                    });
+
+					//Carousel accepts right/left arrow keys for changing photo selection (these bubble up to the body)
+					// TODO: Also accept shift right/left arrow to advance the carousel
+					// requires changing the next/prev photo functions to advance to the next *or* first/last *visible* photo
+					$('#footerDesktop').keydown(function(e){
+						if ( e.which == 39  && e.shiftKey ) {
+							app.desktopCarousel.scrollForward();
+						}
+						else if ( e.which == 37  && e.shiftKey ) {
+							app.desktopCarousel.scrollBackward();
+						}
+					});
+
+					//The body accepts right/left arrow keys for changing photo selection
+					//   and up/down keys for showing/hiding photo description
+					//the default action for arrow keys is to scroll the web page, but we do not need that
+					$('body').keydown(function(e){
+						if ( e.which == 39  && !e.altKey && !e.metaKey && !e.ctrlKey && !e.shiftKey ) {
 							loadNextPicture();
-						else if ( e.keyCode == 37 || e.keyCode == 33 )
+						}
+						else if ( e.which == 37  && !e.altKey && !e.metaKey && !e.ctrlKey && !e.shiftKey ) {
 							loadPrevPicture();
+						}
+						else if ( e.which == 38  && !e.altKey && !e.metaKey && !e.ctrlKey && !e.shiftKey ) {
+							app.desktopPicturePanel.showPlacard();
+						}
+						else if ( e.which == 40  && !e.altKey && !e.metaKey && !e.ctrlKey && !e.shiftKey ) {
+							app.desktopPicturePanel.hidePlacard();
+						}
+					});
+
+					//Picture panel arrow key is behavior is the default for the body, so let it bubble up
+					//   and enter/space for selecting showing the photo in colorbox
+					$('#picturePanel').keydown(function(e){
+						if( (e.which == 13 || e.which == 3 ) && e.target.nodeName === "DIV"  ) {
+							app.desktopPicturePanel.showFullScreen();
+						}
 					});
 				}
 				
@@ -179,75 +252,6 @@ define(["storymaps/maptour/core/WebApplicationData",
 					);
 				}
 				
-				// Prevent focus on mousedown but allow it with keyboard
-				$("body").on("mousedown", "*", function(e) {
-					if (($(this).is(":focus") || $(this).is(e.target)) && $(this).css("outline-style") == "none") {
-						$(this).css("outline", "none").on("blur", function() {
-							$(this).off("blur").css("outline", "");
-						});
-					}
-					
-					if ( $(this).parents("#placard > div").length ) {
-						$(this).parents("#placard > div").css("outline", "none").on("blur", function() {
-							$(this).off("blur").css("outline", "");
-						});
-					}
-					else if ( $(this).parents("#headerDesktop .title").length ) {
-						$(this).parents("#headerDesktop .title").css("outline", "none").on("blur", function() {
-							$(this).off("blur").css("outline", "");
-						});
-					}
-					else if ( $(this).parents("#headerDesktop .subtitle").length ) {
-						$(this).parents("#headerDesktop .subtitle").css("outline", "none").on("blur", function() {
-							$(this).off("blur").css("outline", "");
-						});
-					}
-				});
-				
-				// Detect focus on the title to avoid losing the current point if 
-				//  the app has previously navigated using the mouse
-				/*
-				var preventTitleFocusAction = false;
-				$("#headerDesktop .title").click(function(){
-					preventTitleFocusAction = true;
-				});
-				
-				$("#headerDesktop .title").focusin(function(e){
-					setTimeout(function(){
-						if ( ! preventTitleFocusAction ) {
-							if ( app.data.getCurrentIndex() > 0 ) { //  && ! e.relatedTarget
-								if ( app.data.getCurrentIndex() < app.data.getNbPoints() - 1 )
-									topic.publish("CAROUSEL_CLICK", app.data.getCurrentIndex() + 1);
-							}
-						}
-						
-						preventTitleFocusAction = false;
-					}, 300);
-				});
-				*/
-				
-				/*
-				$(document).on('keydown', function(e){
-					if( e.keyCode === 9 ) {
-						var focusElem = $(":focus");
-						
-						if ( ! focusElem.length ) {
-							setTimeout(function(){
-								if ( ! e.shiftKey  ) {
-									if ( app.data.getCurrentIndex() < app.data.getNbPoints() - 1 )
-										topic.publish("CAROUSEL_CLICK", app.data.getCurrentIndex() + 1);
-								}
-								else {
-									if ( app.data.getCurrentIndex() > 0 )
-										topic.publish("CAROUSEL_CLICK", app.data.getCurrentIndex() - 1);
-								}
-							}, 50);
-							
-						}
-					}
-				});
-				*/
-				
 				if( has("touch") )
 					$("body").addClass("hasTouch");
 					
@@ -256,7 +260,26 @@ define(["storymaps/maptour/core/WebApplicationData",
 				
 				return true;
 			};
-			
+
+            function panMap(direction,percent)
+            {
+                var oldCenter = app.map.extent.getCenter();
+                var deltaX = app.map.extent.getWidth() * percent;
+                var deltaY = app.map.extent.getHeight() * percent;
+                if (direction == 'up') {
+                    app.map.centerAt(oldCenter.offset(0,+deltaY));
+                }
+                else if (direction == 'down') {
+                    app.map.centerAt(oldCenter.offset(0,-deltaY));
+                }
+                else if (direction == 'left') {
+                    app.map.centerAt(oldCenter.offset(-deltaX, 0));
+                }
+                else if (direction == 'right') {
+                    app.map.centerAt(oldCenter.offset(+deltaX, 0));
+                }
+            }
+
 			this.webmapLoaded = function()
 			{
 				var i, 
@@ -1337,7 +1360,7 @@ define(["storymaps/maptour/core/WebApplicationData",
 						);
 				}
 			};
-			
+
 			this.setMapExtent = function(extent)
 			{
 				if( ! extent || ! extent.spatialReference || ! app.map || ! app.map.extent.spatialReference || ! app.map.spatialReference ) {

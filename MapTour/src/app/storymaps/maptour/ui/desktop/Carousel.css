@@ -18,14 +18,13 @@
 }
 
 .modern-layout #footerDesktop .carousel {
-	bottom: 1px;
-	height: 145px;
+	height: 140px;
 }
 
 .carouselWrapper {
 	position:absolute; 
 	z-index:1;
-	top: 12px;
+	top: 5px;
 	bottom:0px;
 	left:0px;
 	right: 0;

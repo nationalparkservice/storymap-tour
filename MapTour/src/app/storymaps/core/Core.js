@@ -116,10 +116,12 @@ define(["esri/map",
 			}
 
 			// Ignore index.html configuration on AGOL/Portal and development (except proxy/sharing URL)
-			if( Helper.isArcGISHosted() || ! isProd() )
+			// Ignore index.html in all cases (NPS template should mimics AGOL)
+			//if( Helper.isArcGISHosted() || ! isProd() )
 				configOptions = {
 					proxyurl: configOptions.proxyurl,
-					sharingurl: configOptions.sharingurl
+					sharingurl: configOptions.sharingurl,
+					authorizedOwners: ["*"]
 				};
 
 			if( ! Config.checkConfigFileIsOK() ) {
@@ -369,7 +371,8 @@ define(["esri/map",
 			else if( webmapId )
 				loadWebMap(webmapId);
 			// Direct creation and not signed-in
-			else if ( app.isDirectCreation && isProd() && ! Helper.getPortalUser() )
+			// redirectToSignIn() does not work; short-circuit this check to use portalLogin() below
+			else if (false &&  app.isDirectCreation && isProd() && ! Helper.getPortalUser() )
 				redirectToSignIn();
 			// Direct creation and signed in
 			else if ( app.isDirectCreation )

@@ -11,6 +11,7 @@
 	height:100%;
 	width:100% !important;
 	overflow:hidden;
+	margin:3px /* provide room for the focus ring - this is a max for all browsers*/
 }
 
 .modern-layout #mapPanel {

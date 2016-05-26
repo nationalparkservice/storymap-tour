@@ -1,4 +1,4 @@
-@media screen and (min-width: 668px) and (orientation:landscape) {
+@media screen and (min-width: 668px) {
 	#listPanel, #infoPanel, #introPanel {
 		display: none !important;
 	}
@@ -21,13 +21,7 @@
 	}
 }
 
-@media screen and (min-width: 668px) and (orientation:portrait) {
-	#picturePanel {
-		display: none !important;
-	}
-}
-
-@media screen and (max-width: 667px), screen and (orientation:portrait) {
+@media screen and (max-width: 667px) {
 	#headerDesktop {
 		display: none;
 	}

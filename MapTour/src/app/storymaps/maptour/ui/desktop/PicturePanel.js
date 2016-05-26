@@ -240,8 +240,7 @@ define(["storymaps/ui/crossfader/CrossFader",
 				var width, height;
 				
 				// Panel dimension without margin
-				var availableWidth = panelAvailableWidth - (2 * SIDE_MARGIN);
-				availableWidth *= 0.95;
+				var availableWidth = panelAvailableWidth;
 			
 				panelAvailableHeight -= 10; // Carousel bottom margin
 				var availableHeight = panelAvailableHeight - (2 * VERTICAL_MARGIN);

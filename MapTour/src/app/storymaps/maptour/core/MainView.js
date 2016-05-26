@@ -731,7 +731,7 @@ define(["storymaps/maptour/core/WebApplicationData",
 					
 				//if the picture would be less than MINIMUM_MAP_WIDTH; then split the difference
 				var pictureWidth = cfg.width < APPCFG.MINIMUM_MAP_WIDTH*2 ? cfg.width / 2 : cfg.width - APPCFG.MINIMUM_MAP_WIDTH;
-				app.desktopPicturePanel.resize(pictureWidth, cfg.height)
+				app.desktopPicturePanel.resize(pictureWidth, cfg.height);
 				app.desktopCarousel.resize();
 				
 				if( app.mapTips ) {

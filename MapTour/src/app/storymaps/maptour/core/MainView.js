@@ -729,7 +729,9 @@ define(["storymaps/maptour/core/WebApplicationData",
 				else
 					$("#footerMobile").hide();
 					
-				app.desktopPicturePanel.resize(cfg.width - APPCFG.MINIMUM_MAP_WIDTH, cfg.height);
+				//if the picture would be less than MINIMUM_MAP_WIDTH; then split the difference
+				var pictureWidth = cfg.width < APPCFG.MINIMUM_MAP_WIDTH*2 ? cfg.width / 2 : cfg.width - APPCFG.MINIMUM_MAP_WIDTH;
+				app.desktopPicturePanel.resize(pictureWidth, cfg.height);app.desktopPicturePanel.resize(cfg.width - APPCFG.MINIMUM_MAP_WIDTH, cfg.height);
 				app.desktopCarousel.resize();
 				
 				if( app.mapTips ) {
@@ -1305,11 +1307,20 @@ define(["storymaps/maptour/core/WebApplicationData",
 				if( ! isDesktopModernUI )
 					return app.map.extent.contains(geom);
 				
+				var mapPosition = domGeom.position(dom.byId("mainMap")); // Assume no border or padding before map content
+				var picturePosition = domGeom.position(dom.byId("picturePanel"));
+				var footerPosition = domGeom.position(dom.byId("footer"));
+				var visibleMapWidth = picturePosition.x - mapPosition.x;
+				var visibleMapHeight = footerPosition.y - mapPosition.y;
+				var mapExtentX = visibleMapWidth * app.map.getResolution();
+				var mapExtentY = visibleMapHeight * app.map.getResolution();
+				//TODO: Provide vertical offset to account for marker being above geom
+				var noGoEdgePercent = 0.15;
 				var visibleExtent = new Extent(
-					app.map.extent.xmin,
-					app.map.extent.ymin + ((10 + domGeom.position(dom.byId("footer")).h) * app.map.getResolution()),
-					app.map.extent.xmin + (domGeom.position(dom.byId("picturePanel")).x * app.map.getResolution()),
-					app.map.extent.ymax,
+					app.map.extent.xmin + noGoEdgePercent * mapExtentX,
+					app.map.extent.ymax - (1 - noGoEdgePercent) * mapExtentY,
+					app.map.extent.xmin + (1 - noGoEdgePercent) * mapExtentX,
+					app.map.extent.ymax - noGoEdgePercent * mapExtentY,
 					app.map.extent.spatialReference
 				);
 				
@@ -1331,8 +1342,15 @@ define(["storymaps/maptour/core/WebApplicationData",
 					app.map.centerAndZoom(geom, zoomLevel);
 				else {
 					var center = geom;
-					var offsetX = 20 + domGeom.position(dom.byId("picturePanel")).x / 2;
-					var offsetY = 10 + domGeom.position(dom.byId("footer")).h / 2;
+					var mapPosition = domGeom.position(dom.byId("mainMap"));
+					var picturePosition = domGeom.position(dom.byId("picturePanel"));
+					var footerPosition = domGeom.position(dom.byId("footer"));
+					var fullMapCenterX = mapPosition.w / 2;
+					var fullMapCenterY = mapPosition.h / 2;
+					var visualMapCenterX = (picturePosition.x - mapPosition.x) / 2;
+					var visualMapCenterY = (footerPosition.y - mapPosition.y) / 2;
+					var offsetX = fullMapCenterX - visualMapCenterX;
+					var offsetY = fullMapCenterY - visualMapCenterY;
 
 					// Should not happen but it has been seen that point are in different proj that the map
 					if( geom.spatialReference.wkid == 4326 && app.map.spatialReference.wkid == 102100 )

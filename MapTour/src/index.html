@@ -47,7 +47,9 @@
 				// Optional list of authorized application or web map owners
 				// Has to be specified when using appid or webmap url parameters (e.g. ["user1"], ["user1", "user2"])
 				// To authorize all users you can use ["*"]
-				authorizedOwners: [""],
+				// For NPS template, this is also hardcoded in core.js, but when in builder, this is referenced before that line.
+				// This is required to enable editing in builder
+				authorizedOwners: ["*"],
 				// Select the application layout between "three-panel" and "integrated"
 				layout: "three-panel",
 				// The application header title, if no title is specified, the webmap's title is used

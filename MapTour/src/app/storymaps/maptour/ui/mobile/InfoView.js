@@ -209,9 +209,6 @@ define(["storymaps/maptour/core/MapTourHelper", "dojo/topic"],
 				var img = _carousel.masterPages[_carousel.currentMasterPage].querySelector('.tourPointImg');
 				if (img){
 					var imgCheck = new Image();
-					imgCheck.onload = function(){
-						$("#infoCarousel").height(_carousel.masterPages[_carousel.currentMasterPage].childNodes[0].clientHeight + 15);
-					};
 					imgCheck.src = img.src || img.getAttribute("data-src");
 				}
 			}

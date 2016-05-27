@@ -103,6 +103,7 @@ body.notNumbered .tpIcon {
 
 .tourPointImg {
 	margin-top:10px;
+	margin-bottom:50px;
 	max-width:90%;
 	border:5px #fff solid;
 	-webkit-box-shadow: 2px 2px 3px 0px #444444;
@@ -119,6 +120,7 @@ body.notNumbered  .tourPointName {
 
 .tourPointIframe {
 	margin-top:10px;
+	margin-bottom:50px;
 	width: 90%;
 	height: 500px;
 	border:5px #fff solid;

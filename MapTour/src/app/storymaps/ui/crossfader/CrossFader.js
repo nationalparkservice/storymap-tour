@@ -382,6 +382,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				$(_placard).empty();
 				$(_placard).append("<div class='name'>"+name+"<div/>");
 				$(_placard).append("<div class='description'>"+text+"<div/>");
+				$(_placard).find('a:not([target])').attr('target', '_blank');
 				
 				if (isInBuilderMode) {
 					new InlineFieldEdit(

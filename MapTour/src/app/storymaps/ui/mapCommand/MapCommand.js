@@ -168,7 +168,7 @@ define([
 
 			// Geolocate button
 			if( navigator && navigator.geolocation && (window.top !== window.self ? false : window.location.protocol.search('https') >= 0)) {
-				$(".esriSimpleSlider", map.container).after('<div id="mainMap_zoom_location" class="esriSimpleSlider esriSimpleSliderVertical mapCommandLocation"><div><img src="resources/icons/mapcommand-location.png"></div></div>');
+				$(".esriSimpleSlider", map.container).after('<div id="mainMap_zoom_location" class="esriSimpleSlider esriSimpleSliderVertical mapCommandLocation"><div><img src="resources/icons/mapcommand-location2.png"></div></div>');
 				$("#mainMap_zoom_location div", map.container).fastClick(getDeviceLocation);
 				this.enableLocationButton(locationButtonEnabled);
 				map.addLayer(locateLayer);

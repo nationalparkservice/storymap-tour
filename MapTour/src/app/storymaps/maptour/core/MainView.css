@@ -11,6 +11,7 @@
 	height:100%;
 	width:100% !important;
 	overflow:hidden;
+	/* Do not Add a margin to the mainMap for the focus ring - it messes with the resize calculations */
 }
 
 .modern-layout #mapPanel {

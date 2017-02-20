@@ -74,7 +74,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					$.colorbox.close();
 				});
 			});
-			
+
+			$(_container1).attr("tabindex", "0");
+			$(_container2).attr("tabindex", "0");
+
 			// Placard
 			_placardContainer2 = $("<div id='placard-bg'></div>");
 			_placard = $("<div id='placard'></div>");
@@ -112,7 +115,16 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				if ( _isModernLayout )
 					$(".modern-layout-control").toggleClass("hover", !! isHoverPicture);
 			});
-			
+
+			$([_container1,_container2]).focus(function(){
+				_fullScreenBtn.toggleClass("hover", true);
+				$(".modern-layout-control").toggleClass("hover", true);
+			}).blur(function(){
+				//TODO: do not remove hover if mouse is within hover zone
+				_fullScreenBtn.toggleClass("hover", false);
+				$(".modern-layout-control").toggleClass("hover", false);
+			});
+
 			$('#placardContainer').hover(function(e){
 				if ( $(e.relatedTarget).hasClass('modern-layout-control') )
 					return;
@@ -126,21 +138,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				$(_toggle).toggleClass('closed', $(_placardContainer2).css('display') != 'none');
 				$(_placardContainer2).slideToggle();
 			});
-			
-			// Keybord event up/down arrow to toggle the placard
-			if( ! app.isInBuilderMode ) {
-				$(window).keyup(function(e){
-					if ( $("#placardContainer").hasClass("placardUnder") )
-						return;
-					
-					$(_toggle).toggleClass('closed', e.keyCode == 40);
-					if( e.keyCode == 40 )
-						$(_placardContainer2).slideUp();
-					else if ( e.keyCode == 38 )
-						$(_placardContainer2).slideDown();
-				});
-			}
-			
+
 			_current = _container1;
 			
 			this.clean = function()
@@ -337,7 +335,9 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 			{		
 				$(_current).addClass("current");
 				$(_other).removeClass("current");
-				
+
+				var restoreFocus = $(_other).is(':focus');
+
 				$(_current).fadeTo("slow", 1);
 				$(_other).fadeTo("slow", 0, function(){
 					$(_other).hide();
@@ -347,6 +347,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				setTimeout(function(){
 					_loadingIndicator.stop();
 				}, 100);
+
+				if(restoreFocus) {
+					$(_current).focus();
+				}
 			}
 			
 			function setPlacard(name, text)
@@ -374,23 +378,11 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					$(_placardContainer).toggleClass("no-description", text === "");
 					$(_placardContainer).toggleClass("force-hidden", name === "" && text === "");
 				}
-				
-				// Picture panel is not in the tab list except if there is an intro record
-				var tabOrder = "tabindex='-1' aria-hidden='true'";
-				
-				if ( app.isLoading && app.data.hasIntroRecord() )
-					tabOrder = "tabindex='0'";
-				
+
 				$(_placard).empty();
-				$(_placard).append("<div class='name' " + tabOrder + ">"+name+"<div/>");	
-				$(_placard).append("<div class='description' " + tabOrder + "'>"+text+"<div/>");
-				
+				$(_placard).append("<div class='name'>"+name+"<div/>");
+				$(_placard).append("<div class='description'>"+text+"<div/>");
 				$(_placard).find('a:not([target])').attr('target', '_blank');
-				
-				// Remove user generated content links from the tab navigation
-				if ( ! app.isInBuilderMode ) {
-					$(_placard).find("a").attr("tabindex", "-1");
-				}
 				
 				if (isInBuilderMode) {
 					new InlineFieldEdit(
@@ -427,7 +419,25 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					$(_placard).find(".description .text_edit_input").css("height", descHeight < 96 ? "50px" : "auto");
 				}
 			}
-			
+
+			this.hidePlacard = function()
+			{
+				if (_placardIsUnder) return;
+				//If link on placard has focus move focus to container before it gets lost
+				if ($(_placardContainer2).find('a :focus')) {
+					$(_current).focus();
+				}
+				$(_toggle).toggleClass('closed', true);
+				$(_placardContainer2).slideUp();
+			};
+
+			this.showPlacard = function ()
+			{
+				if (_placardIsUnder) return;
+				$(_toggle).toggleClass('closed', false);
+				$(_placardContainer2).slideDown();
+			};
+
 			this.fullScreen = function()
 			{
 				if( _fullScreenPreventOpening )
@@ -442,7 +452,15 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 						title: _title,
 						scalePhotos: true, 
 						maxWidth: '90%', 
-						maxHeight: '90%'
+						maxHeight: '90%',
+                        onComplete: function () {
+                            if (true /*FIXME: using keyboard focus*/) {
+                                $('#cboxClose').focus();
+                            }
+                        },
+                        onClosed: function () {
+							$(_current).focus();
+                        }
 					});
 				}
 				else {
@@ -451,7 +469,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 						inline: true, 
 						title: _title,
 						width: '80%', 
-						height: '80%'
+						height: '80%',
+                        onClosed: function () {
+                            $(_current).focus();
+                        }
 					});
 				}
 				

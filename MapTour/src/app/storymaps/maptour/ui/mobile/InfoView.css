@@ -13,7 +13,7 @@
 }
 
 #infoCarousel > div > div {
-	overflow: hidden;
+	overflow-x: hidden;
 }
 
 .iconHolder {

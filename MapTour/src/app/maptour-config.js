@@ -8,11 +8,11 @@ APPCFG = {
 	EMBED: false,
 	
 	// Header Logo
-	HEADER_LOGO_URL: "resources/icons/esri-logo.png",
-	HEADER_LOGO_TARGET: "http://www.esri.com",
+	HEADER_LOGO_URL: "resources/icons/ArrowheadNoBackground.png",
+	HEADER_LOGO_TARGET: "http://www.nps.gov",
 	// Header top right link
-	HEADER_LINK_TEXT: "A story map",
-	HEADER_LINK_URL: "http://storymaps.arcgis.com",
+	HEADER_LINK_TEXT: "An NPS Story Map",
+	HEADER_LINK_URL: "http://www.nps.gov",
 	// Control display of Facebook and Twitter links
 	HEADER_SOCIAL: {
 		facebook: true,
@@ -25,7 +25,7 @@ APPCFG = {
 	},
 	
 	// Header, Picture Panel and Carousel colors
-	COLORS: ["#444", "#B4B4B4", "#E5E5E5"],
+	COLORS: ["#000", "#819355", "#AFBD8E"],
 	
 	// Map popup colors
 	POPUP_BACKGROUND_COLOR: "#444444", 
@@ -96,7 +96,7 @@ APPCFG = {
 		}
 	},
 	// Default color
-	PIN_DEFAULT_CFG: 'r',
+	PIN_DEFAULT_CFG: 'g',
 	// Pin states
 	ICON_CFG: {
 		normal: {
@@ -141,17 +141,15 @@ APPCFG = {
 	
 	// Online photo sharing services connection parameters
 	FLICKR_API_KEY: "750b36a2ac65a72e03cf9cef06d79f45",
-	// This Youtube key is valid for application running on arcgis.com and esri.com domains
-	// If the application is deployed on Portal for ArcGIS or your own server, the Youtube api call 
-	//  won't be perfomed until you set the following flag and provide your own key
-	YOUTUBE_DISABLE_ON_PORTAL: true,
-	YOUTUBE_API_KEY: "AIzaSyDevTFP16nz6sA-akiOVi6wWXiplJnQ4qw",
+	// This Youtube key is valid for application running on the nps.gov domains
+	YOUTUBE_DISABLE_ON_PORTAL: false,
+	YOUTUBE_API_KEY: "AIzaSyCL0LWXaLRPW_MclPK4-aQJvPpboakP-Ao",
 	
 	COLOR_SCHEMES:  [
 		// COLORS is added as the first item at runtime
-		{name: "Black", headerColor: "#000", middleColor: "#B4B4B4", footerColor: "#E5E5E5"},
-		{name: "Blue", headerColor: "#0e3867", middleColor: "#5d6f89", footerColor: "#9096a9"},
-		{name: "Green", headerColor: "#1a3606", middleColor: "#737c6c", footerColor: "#a8b09e"}
+		{name: "Slate", headerColor: "#000", middleColor: "#908D7C", footerColor: "#AEAC9F"},
+		{name: "Beige", headerColor: "#000", middleColor: "#D3CEBC", footerColor: "#F5F0DD"},
+		{name: "Tan", headerColor: "#000", middleColor: "#DDC78F", footerColor: "#C8A54B"}
 	],
 	
 	WEBAPP_KEYWORD_GENERIC: ["JavaScript", "Map", "Mapping Site", "Online Map", "Ready To Use", "selfConfigured", "Web Map"],
@@ -191,7 +189,7 @@ APPCFG = {
 	// You have to edit those only if your webmap is deployed on Portal for ArcGIS instance and if you are not deploying the template on the Portal webserver
 	// If you are using ArcGIS Online or deploying the template on a Portal instance, you don't have to edit those URL
 	DEFAULT_SHARING_URL: "//www.arcgis.com/sharing/content/items",
-	//DEFAULT_SHARING_URL: "//portal.internal.com/arcgis/sharing/content/items",
+	//DEFAULT_SHARING_URL: "//gisportal.nps.gov/arcgis/sharing/content/items",
 	DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
-	//DEFAULT_PROXY_URL: "//portal.internal.com/arcgis/sharing/proxy"
+	//DEFAULT_PROXY_URL: "//gisportal.nps.gov/arcgis/sharing/proxy"
 };

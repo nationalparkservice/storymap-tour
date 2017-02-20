@@ -2,14 +2,15 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 		"storymaps/utils/Helper",
 		"dojo/has", 
 		"dojo/topic",
-		"esri/urlUtils"
-	], 
+		"esri/urlUtils",
+		"./units"],
 	function(
 		InlineFieldEdit,
 		Helper, 
 		has, 
 		topic,
-		urlUtils
+		urlUtils,
+		units
 	){
 		/**
 		 * Header
@@ -63,10 +64,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				if( isInBuilderMode )
 					new InlineFieldEdit(selector, editFieldsEnterEvent, editFieldsExitEvent);
 				
-				if( ! isInBuilderMode && ! subtitle ) {
-					$(selector + ' #headerDesktop .title').css("margin-top", 40);
-					$(selector + ' #headerDesktop .subtitle').css("height", 32).attr("tabindex", "-1");
-				}
+				//if( ! isInBuilderMode && ! subtitle ) {
+				//	$(selector + ' #headerDesktop .title').css("margin-top", 40);
+				//	$(selector + ' #headerDesktop .subtitle').css("height", 32);
+				//}
 	
 				// Mobile init
 				$(window).scroll(this.hideMobileBanner);
@@ -129,8 +130,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					if (target) {
 						$(selector + ' .logo img').closest("a")
 							.css("cursor", "pointer")
-							.attr("href", target)
-							.attr("tabindex", "-1");
+							.attr("href", target);
 					}
 					else 
 						$(selector + ' .logo img').closest("a").css("cursor", "default");
@@ -142,13 +142,40 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 			this.setTopRightLink = function(text, link)
 			{
 				if( link )
-					$(selector + ' .social .msLink').html(text ? '<a href="' + link + '" target="_blank" tabindex="-1">' + text + '</a>' : '');
+					$(selector + ' .organization .unit').html(text ? '<a href="' + link + '" target="_blank">' + text + '</a>' : '');
 				else if ( text )
-					$(selector + ' .social .msLink').html('<span>' + text + '</a>');
+					$(selector + ' .organization .unit').html(text);
 				else 
-					$(selector + ' .social .msLink').html('');
+					$(selector + ' .organization .unit').html('');
+                setNPSBanner(text, link);
 			};
-			
+
+            function setNPSBanner(unitcode, link)
+            {
+                if (unitcode in units) {
+                    if (link) {
+                        $("#parkShortName").html('<a href="'+link + '" target="blank">' + units[unitcode].name + '</a>');
+                    } else {
+                        $("#parkShortName").html(units[unitcode].name);
+                    }
+                    $("#unitType").html(units[unitcode].type);
+                    $("#parkLocation").html(units[unitcode].state);
+                } else {
+                    var headerparts = unitcode.split("|");
+                    if (link) {
+                        $("#parkShortName").html('<a href="'+link + '" target="blank">' + headerparts[0] + '</a>');
+                    } else {
+                        $("#parkShortName").html(headerparts[0]);
+                    }
+                    if (headerparts.length > 1) {
+                        $("#unitType").html(headerparts[1]);
+                    }
+                    if (headerparts.length > 2) {
+                        $("#parkLocation").html(headerparts[2]);
+                    }
+                }
+            }
+
 			this.setTitleAndSubtitle = function(title, subtitle)
 			{
 				$(selector + ' #headerMobile .title').html(title);
@@ -223,8 +250,8 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				}
 				
 				window.open(
-					'http://www.facebook.com/sharer/sharer.php?u=' + url, 
-					'', 
+					'http://www.facebook.com/sharer/sharer.php?u=' + url,
+					'',
 					'toolbar=0,status=0,width=626,height=436'
 				);
 			}

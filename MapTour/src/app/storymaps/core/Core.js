@@ -594,7 +594,7 @@ define(["esri/map",
 						}
 					}),
 					showAttribution: true,
-					wrapAround180: false
+					wrapAround180: true
 				},
 				ignorePopups: true,
 				bingMapsKey: APPCFG.BING_MAPS_KEY,

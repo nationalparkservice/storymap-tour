@@ -922,8 +922,12 @@ define(["esri/map",
 		{
 			// TODO display another redirect message
 			loadingIndicator.setMessage(i18n.viewer.loading.loadBuilder);
+			var loc = document.location.href;
+			if (loc.substr(loc.length - 1) == '#')
+				loc = loc.slice(0,-1);
+			loc = loc + "&fromGallery";
 			setTimeout(function(){
-				window.location = document.location.href + "&fromGallery";
+				window.location = loc;
 			}, 1200);
 		}
 

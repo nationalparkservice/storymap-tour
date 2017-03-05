@@ -1207,6 +1207,11 @@ define(["storymaps/maptour/core/WebApplicationData",
 			{
 				return WebApplicationData.get();
 			};
+
+			this.isBlank = function()
+			{
+				return WebApplicationData.isBlank() || _tourPoints.length === 0;
+			};
 		};
 	}
 );

@@ -532,7 +532,7 @@ define(["esri/map",
 					loadWebMap(MapTourBuilderHelper.getBlankWebmapJSON());
 				}
 				// ArcGIS Gallery page start the app with an appid that doesn't include a webmap
-				else if (Helper.getPortalUser() || ! isProd())
+				else if (app.data.isBlank())
 					redirectToBuilderFromGallery();
 				else
 					initError("invalidApp");

@@ -49,6 +49,10 @@ define(["storymaps/maptour/core/FieldConfig", "dojo/_base/lang"],
 				
 				return data;
 			},
+			isBlank: function()
+			{
+				return Object.keys(_data.values).length <= 1;
+			},
 			getBlank: function()
 			{
 				return {

@@ -192,3 +192,4 @@ APPCFG = {
 	//DEFAULT_SHARING_URL: "//gisportal.nps.gov/arcgis/sharing/content/items",
 	DEFAULT_PROXY_URL: "//www.arcgis.com/sharing/proxy"
 	//DEFAULT_PROXY_URL: "//gisportal.nps.gov/arcgis/sharing/proxy"
+};

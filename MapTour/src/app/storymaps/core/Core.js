@@ -341,7 +341,7 @@ define(["esri/map",
 					} 
 				}
 
-      	app.isPortal = !!app.portal.isPortal;
+				app.isPortal = !!app.portal.isPortal;
 
 				// Help URL on Portal for ArcGIS
 				if ( app.isPortal && app.portal.helpBase && app.portal.portalHostname ) {

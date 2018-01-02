@@ -310,7 +310,7 @@ define(["esri/map",
 
 				//  Not common, but some systems might be set up as a managed egdb instead of an arcgis data store.  See here for more info:
 				//  https://devtopia.esri.com/WebGIS/arcgis-for-server/issues/4741#issuecomment-973189
-				if( response.isPortal && !response.hasRelationalArcGISDataStore )
+				if( app.portal.isPortal && !app.portal.hasRelationalArcGISDataStore )
 					APPCFG.AUTHORIZED_IMPORT_SOURCE.featureService = false;
 
 				// Disable feature service creation as Portal for ArcGIS 10.2 doesn't support that yet

@@ -91,7 +91,21 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 
 			$(_container1).append(_img1).append(_iframe1);
 			$(_container2).append(_img2).append(_iframe2);
-			$(_container).append(_container1).append(_container2).append(_fullScreenBtn).append(_placardContainer);
+			if(MapTourHelper.isPanelsLayout()){
+				if( $("#placardContainer").length ) {
+					$("#arrowPrev").appendTo($("#leftPanel"));
+					$("#arrowNext").appendTo($("#leftPanel"));
+					$("#placardContainer").remove();
+				}
+				$(_container).append(_container1).append(_container2);
+				$("#contentPanel").append(_fullScreenBtn);
+				$(_placardContainer).insertAfter($("#mapPanel"));
+				$("#arrowPrev").appendTo($("#placard-bg"));
+				$("#arrowNext").appendTo($("#placard-bg"));
+				$('#toggle').hide();
+			}else{
+				$(_container).append(_container1).append(_container2).append(_fullScreenBtn).append(_placardContainer);
+			}
 
 			$(_img1).load(onImageLoad);
 			$(_img2).load(onImageLoad);
@@ -102,13 +116,20 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				if( ! $(e.target).parent().hasClass('current') )
 					return;
 
-				var isHoverPicture = e.type == "mouseenter"
-					|| $(e.relatedTarget).hasClass('modern-layout-control')
-					|| $(e.relatedTarget).hasClass('btn-fullscreen')
-					|| $(e.relatedTarget).is('#placardContainer')
-					|| $(e.relatedTarget).parents('#placardContainer').length
-					|| $(e.relatedTarget).hasClass('editPictureButtons')
-					|| $(e.relatedTarget).parents('.editPictureButtons').length;
+				var isHoverPicture;
+
+				if( $("body").hasClass("side-panel") ) {
+					isHoverPicture = e.type == "mouseenter"
+						|| $(e.relatedTarget).hasClass('btn-fullscreen');
+				} else {
+					isHoverPicture = e.type == "mouseenter"
+						|| $(e.relatedTarget).hasClass('modern-layout-control')
+						|| $(e.relatedTarget).hasClass('btn-fullscreen')
+						|| $(e.relatedTarget).is('#placardContainer')
+						|| $(e.relatedTarget).parents('#placardContainer').length
+						|| $(e.relatedTarget).hasClass('editPictureButtons')
+						|| $(e.relatedTarget).parents('.editPictureButtons').length;
+				}
 
 				_fullScreenBtn.toggleClass("hover", !! isHoverPicture);
 
@@ -126,7 +147,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 			});
 
 			$('#placardContainer').hover(function(e){
-				if ( $(e.relatedTarget).hasClass('modern-layout-control') )
+				if ( $(e.relatedTarget).hasClass('modern-layout-control') || $("body").hasClass('side-panel'))
 					return;
 
 				_fullScreenBtn.toggleClass("hover", e.type != "mouseleave");
@@ -166,6 +187,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 
 				$(_current).find('iframe').attr("src", "");
 
+				if($("body").hasClass("side-panel") && $("body").hasClass("builder-mode")) {
+					$(".builderImageTarget").show();
+				}
+
 				_current = _current == _container1 ? _container2 : _container1;
 				_other = _current == _container1 ? _container2 : _container1;
 
@@ -180,10 +205,17 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					onImageLoad();
 				}
 				else {
+					var _protocolUrl = url;
 					if(app.org && app.org.allSSL && app.data.isFSWithURLFields() && url.slice(0,5) != 'https'){
+						_protocolUrl = 'https:' + url.slice(5);
 						mediaEl.attr('src', 'https:' + url.slice(5));
-					}else{
-						mediaEl.attr('src', url);
+					}
+
+					mediaEl.attr('src', _protocolUrl);
+					if ('objectFit' in document.documentElement.style === false) {
+						mediaEl.parent().css({
+							backgroundImage: 'url(' + _protocolUrl + ')'
+						});
 					}
 
 					if ( ! app.isLoading )
@@ -191,11 +223,20 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				}
 
 				if( ! _mediaIsImg ) {
-					$(_placardContainer).toggleClass("force-hidden", ! isInBuilderMode && title === "" && caption === "");
+					$(_placardContainer).toggleClass("force-hidden", ! $("body").hasClass("side-panel") && ! isInBuilderMode && title === "" && caption === "");
 
 					// Magic static ratio - needs to be worked out
 					_actualImageWidth = 400 * 16 / 8;
 					_actualImageHeight = 400;
+
+					if( $("body").hasClass("side-panel") && app.data.hasIntroRecord() && ( app.data.getCurrentIndex() == -1 || app.data.getCurrentIndex() == null ) ) {
+						$(_current).find('img').attr('src', '');
+						mediaEl.attr('src', '');
+						setTimeout(function() {
+							$(".builderImageTarget").popover('show');
+						}, 500);
+					}
+
 
 					setTimeout(function(){
 						fade();
@@ -211,8 +252,8 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 
 			this.invalidate = function()
 			{
-				$("#pictureLoadingIndicator").css("padding-top",($(_container).height() / 2 - (_isModernLayout ? 30 : 26)));
-				$("#pictureLoadingIndicator").css("padding-left",($(_container).width()/2 - (_isModernLayout ? 54 : 6)));
+				$("#pictureLoadingIndicator").css("padding-top",($(_container).height() / 2 - (_isModernLayout || $("body").hasClass("side-panel") ? 30 : 26)));
+				$("#pictureLoadingIndicator").css("padding-left",($(_container).width()/2 - (_isModernLayout || $("body").hasClass("side-panel") ? 54 : 6)));
 				measure();
 			};
 
@@ -250,6 +291,13 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				var ALLOWABLE_WIDTH = $(_container).width()-6;
 				var ALLOWABLE_HEIGHT = $(_container).height();
 
+				if(MapTourHelper.isPanelsLayout()){
+					$(_current).width(ALLOWABLE_WIDTH + 6);
+					$(_current).height(ALLOWABLE_HEIGHT);
+					$(".member-image").css({top: 0});
+					return;
+				}
+
 				if ( _placardIsUnder )
 					ALLOWABLE_HEIGHT -= 70;
 
@@ -264,7 +312,9 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					$(_current).width(ALLOWABLE_HEIGHT * currentAR);
 				}
 
-				$(_current).css("left",(ALLOWABLE_WIDTH - $(_current).width()) / 2);
+				if(!$("body").hasClass("side-panel")){
+					$(_current).css("left",(ALLOWABLE_WIDTH - $(_current).width()) / 2);
+				}
 				$(_current).css("top",Math.floor((ALLOWABLE_HEIGHT - $(_current).height()) / 2));
 
 				resizePlacardContainer();
@@ -275,6 +325,10 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 
 			function resizePlacardContainer()
 			{
+				if(MapTourHelper.isPanelsLayout()){
+					return;
+				}
+
 				// Placard under media
 				if ( _placardIsUnder ) {
 					$(_placardContainer).addClass("placardUnder");
@@ -315,6 +369,8 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 				// Placard hover media
 				else {
 					$(_placardContainer).removeClass("placardUnder");
+
+					$('#toggle').toggle(!MapTourHelper.isPanelsLayout());
 
 					$(_placardContainer).css("height", "auto");
 					$(_placardContainer).css("top", "auto");
@@ -372,26 +428,99 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					});
 
 					name = "<div class='text_edit_label'>" + (name || i18n.viewer.headerJS.editMe) + "</div>";
-					name += "<div class='text_edit_icon' title='"+i18n.viewer.crossFaderJS.setPicture+"'></div>";
+					if( $("body").hasClass("side-panel") ){
+						name += "<div class='pencilIconDiv'><i class='fa fa-pencil' title='"+i18n.viewer.crossFaderJS.setPicture+"'></i></div>";
+					} else {
+						name += "<div class='text_edit_icon' title='"+i18n.viewer.crossFaderJS.setPicture+"'></div>";
+					}
 					name += "<textarea rows='3' class='text_edit_input' type='text' spellcheck='true'" + (nameLength ? "maxlength='" + (nameLength - (name.match(/=/g)||[]).length) + "'" : "") + "></textarea>";
 
 					text = "<div class='text_edit_label'>" + (text || i18n.viewer.headerJS.editMe) + "</div>";
-					text += "<div class='text_edit_icon' title='"+i18n.viewer.crossFaderJS.setCaption+"'></div>";
+					if( $("body").hasClass("side-panel") ){
+						text += "<div class='pencilIconDiv'><i class='fa fa-pencil' title='"+i18n.viewer.crossFaderJS.setCaption+"'></i></div>";
+					} else {
+						text += "<div class='text_edit_icon' title='"+i18n.viewer.crossFaderJS.setCaption+"'></div>";
+					}
 					text += "<textarea rows='6' class='text_edit_input' type='text' spellcheck='true'" + (descrLength ? "maxlength='" + (descrLength - (text.match(/=/g)||[]).length) + "'" : "") + "></textarea>";
 				}
 				else {
 					$(_placardContainer).toggleClass("no-description", text === "");
-					$(_placardContainer).toggleClass("force-hidden", name === "" && text === "");
+					$(_placardContainer).toggleClass("force-hidden", ! $("body").hasClass("side-panel") && name === "" && text === "");
 				}
 
 				$(_placard).empty();
-				$(_placard).append("<div class='name'>"+name+"<div/>");
-				$(_placard).append("<div class='description'>"+text+"<div/>");
+				if( $("body").hasClass("side-panel") ){
+					if( app.data.hasIntroRecord() && (app.data.getCurrentIndex() == null || app.data.getCurrentIndex() == -1) ){
+						$(_placard).append("<div class='cover-builder'><div class='cover-config'>" + i18n.viewer.builderHTML.coverBuilder + "<i class='fa fa-small fa-question-circle cover-builder-tooltip' title='" + i18n.viewer.builderHTML.coverPreview + "'></i></div></div>");
+						$(_placard).append("<div class='feature-id'></div>");
+						$(_placard).append("<div class='name'>"+name+"</div>");
+						if ( $("body").hasClass('builder-mode') ) {
+							$("#arrowPrev").hide();
+							if ( app.data.hasIntroRecord() && ! app.data.getIntroData().attributes.isVideo() && MapTourHelper.mediaIsSupportedImg(app.data.getIntroData().attributes.getURL() ) ) {
+								$(".cover-novideo-tooltip").hide();
+							}
+						}
+					}
+					if( app.data.getCurrentIndex() > -1 && app.data.getCurrentIndex() != null){
+						if($("body").hasClass('builder-mode')){
+							if( app.data.getCurrentIndex() > 0 /*|| (app.data.hasIntroRecord() && app.data.getCurrentIndex() === 0)*/ )
+								$("#arrowPrev").show();
+							$(_placard).append("<div class='cover-builder' style='background-color: white;'><div class='btn btn-primary coverRecordButton'>" + i18n.viewer.builderHTML.cover + "</div><i class='fa fa-small fa-exclamation-circle cover-novideo-tooltip' title='" + i18n.viewer.builderHTML.coverNoVideo + "'></i></div>");
+							$(".cover-novideo-tooltip").css("margin-left", $(".coverRecordButton").width() + 57);
+
+							if ( app.data.hasIntroRecord() && ! app.data.getIntroData().attributes.isVideo() && MapTourHelper.mediaIsSupportedImg(app.data.getIntroData().attributes.getURL() ) ) {
+								$(".cover-novideo-tooltip").hide();
+							} else {
+								$(".cover-novideo-tooltip").show();
+							}
+						}
+						var color = app.data.getCurrentAttributes().getColor() || "r";
+						var textColor = MapTourHelper.getCustomColor(color);
+
+						if(app.data.getCurrentIndex()+1 < 10){
+							$(_placard).append("<div class='feature-id' style='margin-left: 25px; width: 25px; color:" + textColor + ";'>"+(app.data.getCurrentIndex()+1)+"</div>");
+							$(_placard).append("<div style='margin-left: 15px' class='name'>"+name+"</div>");
+						} else {
+							$(_placard).append("<div class='feature-id' style='letter-spacing: -2px; color:" + textColor + ";'>"+(app.data.getCurrentIndex()+1)+"</div>");
+							$(_placard).append("<div class='name'>"+name+"</div>");
+						}
+					}
+					$("#contentPanel").prepend($(".btn-fullscreen"));
+
+					if( app.data.hasIntroRecord() && app.isInBuilderMode ) {
+						$(".cover-builder").show();
+						$("#placard .name .fa-pencil").css("top", "73px");
+						$(".side-panel.builder-mode #arrowPrev").css("top", "60px");
+						$(".side-panel.builder-mode #arrowNext").css("top", "60px");
+					} else {
+						$(".cover-builder").hide();
+						$("#placard .name .fa-pencil").css("top", "33px");
+						$(".side-panel.builder-mode #arrowPrev").css("top", "30px");
+						$(".side-panel.builder-mode #arrowNext").css("top", "30px");
+					}
+				} else {
+					$(_placard).append("<div class='name'>"+name+"</div>");
+				}
+				$(_placard).append("<div class='description'>"+text+"</div>");
+
+				if( $("body").hasClass("side-panel") ){
+					var descriptionHeight = $("#placard-bg").height() - $(".cover-builder").height() - $(".name").height();
+					$(".description").height(descriptionHeight - 70);
+					if( app.data.hasIntroRecord() && app.isInBuilderMode ) {
+						$("#placard .description").css("margin-top", "-60px");
+					}
+				}
+
 				$(_placard).find('a:not([target])').attr('target', '_blank');
 
 				if (isInBuilderMode) {
+					if(!app.data.hasIntroRecord()){
+						$(".coverRecordButton").toggle();
+					}
+					$(".coverRecordButton").click(coverRecordClick);
 					new InlineFieldEdit(
-						selector,
+						//selector,
+						"#placard",
 						function(){
 							_fullScreenPreventOpening = true;
 						},
@@ -410,6 +539,13 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 						$(this).attr("maxlength", descrLength - nbCharToEscape);
 					});
 				}
+			}
+
+			function coverRecordClick()
+			{
+				app.data.setCurrentPointByGraphic(app.data.getIntroData());
+				topic.publish("CORE_UPDATE_UI", { editFirstRecord: true });
+				$("#arrowPrev").addClass("disabled");
 			}
 
 			function checkBuilderTextarea()
@@ -492,7 +628,8 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 					checkBuilderTextarea();
 
 				resizePlacardContainer();
-				_fullScreenBtn.css("top", parseFloat($("#cfader > .current").first().css("top")) + 5);
+				if( !$("body").hasClass("side-panel") )
+					_fullScreenBtn.css("top", parseFloat($("#cfader > .current").first().css("top")) + 5);
 			};
 
 			this.exitBuilderMode = function()

@@ -50,7 +50,7 @@ define(["dojo/has",
 			this.update = function(slides, bgColor, hoverColor)
 			{
 				setColor(bgColor, hoverColor);
-				iscroll.destroy();
+				iscroll && iscroll.destroy();
 				render(slides);
 			};
 

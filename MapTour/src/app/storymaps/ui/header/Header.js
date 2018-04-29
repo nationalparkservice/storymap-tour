@@ -163,7 +163,7 @@ define(["storymaps/ui/inlineFieldEdit/InlineFieldEdit",
 						// Again for mobile scroll layout
 						$('.scroll-layout-banner .mobile-scroll-logo-link')
 							.css("cursor", "pointer")
-							.attr("href", target)
+							.attr("href", target);
 					}
 					else
 						$(selector + ' .logo img').closest("a").css("cursor", "default");

@@ -4,7 +4,6 @@
 		<title></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-		<meta name="fragment" content="!">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
@@ -44,15 +43,16 @@
 				// - If an application id is specified, the webmap configuration isn't used
 				webmap: "",
 				appid: "",
-				// Optionally to secure access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
-				oAuthAppId: "rQHlHk7Cy7WI1PYG",
 				// Optional list of authorized application or web map owners
 				// Has to be specified when using appid or webmap url parameters (e.g. ["user1"], ["user1", "user2"])
 				// To authorize all users you can use ["*"]
 				// For NPS template, this is also hardcoded in core.js, but when in builder, this is referenced before that line.
 				// This is required to enable editing in builder
 				authorizedOwners: ["*"],
-				// Select the application layout between "three-panel" and "integrated"
+				// Optionally to secure Map Tour's access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
+				// User will need to sign-in to access the viewer even if your application is public
+				oAuthAppId: "rQHlHk7Cy7WI1PYG",
+				// Select the application layout between "three-panel", "integrated", or "side-panel"
 				layout: "side-panel",
 				// The application header title, if no title is specified, the webmap's title is used
 				title: "",
@@ -74,7 +74,7 @@
 		</script>
 
 		<script type="text/javascript">
-			var version = '2.11.0';
+			var version = '2.14.0';
 			var isProduction = false;
 			// IE 9 and below are not compatible with script async attribute.
 			var canUseAsyncAttr = true;
@@ -117,8 +117,8 @@
 				document.getElementsByTagName("head")[0].appendChild(el);
 			}
 
-			loadCSS("https://js.arcgis.com/3.24/esri/css/esri.css", true);
-			loadCSS("https://js.arcgis.com/3.24/dijit/themes/claro/claro.css", true);
+			loadCSS("https://js.arcgis.com/3.27/esri/css/esri.css", true);
+			loadCSS("https://js.arcgis.com/3.27/dijit/themes/claro/claro.css", true);
 
 			if( isProduction ) {
 				loadCSS("app/maptour-min.css");
@@ -163,7 +163,6 @@
 
 				loadCSS("app/storymaps/maptour/builder/PopupViewCSV.css");
 				loadCSS("app/storymaps/maptour/builder/PopupViewFlickr.css");
-				loadCSS("app/storymaps/maptour/builder/PopupViewPicasa.css");
 				loadCSS("app/storymaps/maptour/builder/PopupViewYoutube.css");
 				loadCSS("app/storymaps/maptour/builder/PopupViewGeoTag.css");
 
@@ -220,6 +219,9 @@
 					<i class="fa-custom-x fa fa-share"></i>
 					<i class="fa fa-stack-1x fa-lock share-level"></i>
 				</span>
+			</button>
+			<button id="panels-builder-preview" role="button" class="builder-preview bldr-btn">
+				<i class="fa-custom-x fa fa-eye"></i>
 			</button>
 			<hr>
 			<button role="button" id="addPopupButton2" class="bldr-btn">
@@ -323,10 +325,7 @@
 					<div id="splashTitle"></div>
 					<div id="splashSubtitle"></div>
 				</div>
-				<div id="takeTour">
-					<div id="takeTourText"></div>
-					<div class="fa fa-chevron-down"></div>
-				</div>
+				<button type="button" class="reset-btn icon-down-open-big cover-start start-button"></button>
 			</div>
 			<div id="leftPanel"></div>
 			<!-- Map panel -->
@@ -750,16 +749,14 @@
 							<td class="btn-select-flickr">
 								<a><img style="width: 50px"/></a>
 							</td>
-							<td class="btn-select-picasa">
+							<td class="btn-select-youtube">
 								<a><img style="width: 50px"/></a>
 							</td>
 						</tr>
 						<tr style="height: 15px">
 						</tr>
 						<tr>
-							<td class="btn-select-youtube">
-								<a><img style="width: 50px"/></a>
-							</td>
+
 							<td class="btn-select-advanced">
 								<a><img style="width: 44px"/></a>
 							</td>
@@ -825,9 +822,6 @@
 						<td class="btn-select-flickr">
 							<img style="width: 50px"/>
 						</td>
-						<td class="btn-select-picasa">
-							<img style="width: 50px"/>
-						</td>
 						<td class="btn-select-youtube">
 							<img style="width: 50px"/>
 						</td>
@@ -885,27 +879,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-			<div id="popupViewPicasa" class="popupViewPicasa">
-				<div class="headerContainer">
-					<span class="header"></span>
-					<span class="commonHeader"></span>
-				</div>
-				<div class="contentContainer">
-					<input class="selectUserName" type="text" value=""/>
-					<button class="btn btn-userLogin"></button>
-					<span class="signInMsg"></span>
-
-					<label class="control-label" for="picasaListAlbum"></label>
-					<div class="controls">
-						<div class="btn-group">
-							<select id="picasaListAlbum"></select>
-						</div>
-					</div>
-					<div class="howToFind">
-						<a></a>
 					</div>
 				</div>
 			</div>
@@ -1262,7 +1235,7 @@
 			</table>
 		</div>
 
-		<script src="https://js.arcgis.com/3.24/init.js"></script>
+		<script src="https://js.arcgis.com/3.27/init.js"></script>
 		<script type="text/javascript">
 			loadJS('app/maptour-config.js');
 

@@ -219,7 +219,7 @@
 
 			jshint: {
 				files: ['src/app/**/*.js'],
-				options: {jshintrc: '.jshintrc'}
+				options: {jshintrc: '.jshintrc', force: true}
 			},
 
 			connect: {
